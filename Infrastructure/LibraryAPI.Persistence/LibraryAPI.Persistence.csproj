@@ -23,4 +23,8 @@
     <ProjectReference Include="..\..\Core\LibraryAPI.Domain\LibraryAPI.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Contexts\" />
+  </ItemGroup>
+
 </Project>

@@ -240,6 +240,38 @@ namespace LibraryAPI.Persistence.Migrations
                     b.ToTable("Librarys");
                 });
 
+            modelBuilder.Entity("LibraryAPI.Domain.Entities.ReadList", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("AppUserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("BookId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("BookName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AppUserId")
+                        .IsUnique();
+
+                    b.ToTable("ReadLists");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.Property<int>("Id")
@@ -376,6 +408,17 @@ namespace LibraryAPI.Persistence.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("LibraryAPI.Domain.Entities.ReadList", b =>
+                {
+                    b.HasOne("LibraryAPI.Domain.Entities.Identity.AppUser", "AppUser")
+                        .WithOne("ReadList")
+                        .HasForeignKey("LibraryAPI.Domain.Entities.ReadList", "AppUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AppUser");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("LibraryAPI.Domain.Entities.Identity.AppRole", null)
@@ -424,6 +467,12 @@ namespace LibraryAPI.Persistence.Migrations
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("LibraryAPI.Domain.Entities.Identity.AppUser", b =>
+                {
+                    b.Navigation("ReadList")
                         .IsRequired();
                 });
 #pragma warning restore 612, 618
