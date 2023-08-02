@@ -14,5 +14,6 @@ namespace LibraryAPI.Domain.Entities.Identity
         public int Age { get; set; }
         public string? RefreshToken { get; set; }
         public DateTime? RefreshTokenEndDate { get; set; }
+        public ICollection<ReadList> ReadLists { get; set; }
     }
 }

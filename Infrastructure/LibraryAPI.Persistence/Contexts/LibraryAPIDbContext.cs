@@ -22,10 +22,11 @@ namespace LibraryAPI.Persistence.Contexts
         public DbSet<Book> Books { get; set; }  
         public DbSet<Library> Librarys { get; set; }
         public DbSet<Author> Author { get; set; }
+        public DbSet<ReadList> ReadLists { get; set; }
 
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
         {
-            var entities =ChangeTracker.Entries();
+            var entities =ChangeTracker.Entries();    
             foreach (var entityEntry in entities)
             {
                 if (entityEntry.Entity is BaseEntity entity)
