@@ -15,5 +15,6 @@ namespace LibraryAPI.Domain.Entities
         public string Description { get; set; }
         public ICollection<Library> Librarys { get; set; }
         public ICollection<Author> Authors { get; set; }
+        public ICollection<ReadListItem> ReadListItems { get; set; }
     }
 }

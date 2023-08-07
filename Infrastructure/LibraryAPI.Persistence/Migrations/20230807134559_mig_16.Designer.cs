@@ -4,6 +4,7 @@ using LibraryAPI.Persistence.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LibraryAPI.Persistence.Migrations
 {
     [DbContext(typeof(LibraryAPIDbContext))]
-    partial class LibraryAPIDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230807134559_mig_16")]
+    partial class mig_16
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -249,7 +252,7 @@ namespace LibraryAPI.Persistence.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("ReadListItemId")
+                    b.Property<Guid>("ReadListItemsId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("UpdatedDate")
@@ -261,7 +264,7 @@ namespace LibraryAPI.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ReadListItemId");
+                    b.HasIndex("ReadListItemsId");
 
                     b.HasIndex("UserId")
                         .IsUnique();
@@ -431,7 +434,7 @@ namespace LibraryAPI.Persistence.Migrations
                 {
                     b.HasOne("LibraryAPI.Domain.Entities.ReadListItem", "ReadListItem")
                         .WithMany("ReadLists")
-                        .HasForeignKey("ReadListItemId")
+                        .HasForeignKey("ReadListItemsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

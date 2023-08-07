@@ -23,6 +23,25 @@ namespace LibraryAPI.Persistence.Contexts
         public DbSet<Library> Librarys { get; set; }
         public DbSet<Author> Author { get; set; }
         public DbSet<ReadList> ReadLists { get; set; }
+        public DbSet<ReadListItem> ReadListItems { get; set; }
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.Entity<ReadList>().HasKey(rl => rl.Id);
+            builder.Entity<ReadListItem>().HasKey(rli => rli.Id);
+
+            builder.Entity<ReadList>().HasOne(rl=> rl.ReadListItem).WithMany(rli => rli.ReadLists)
+                .HasForeignKey(rl => rl.ReadListItemId);
+
+            builder.Entity<ReadList>().HasOne(rl => rl.User).WithOne(u => u.ReadList).HasForeignKey<ReadList>(rl=>rl.UserId);
+
+            builder.Entity<Book>().HasKey(b => b.Id);
+            builder.Entity<Book>().HasMany(b => b.ReadListItems).WithOne(rli => rli.Book)
+                .HasForeignKey(rli => rli.BookId);
+
+
+
+            base.OnModelCreating(builder);
+        }
 
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
         {

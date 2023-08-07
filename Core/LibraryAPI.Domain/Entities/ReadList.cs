@@ -10,7 +10,9 @@ namespace LibraryAPI.Domain.Entities
 {
     public class ReadList : BaseEntity
     {
-        public int UserId { get; set; }
+        public string UserId { get; set; }
+        public Guid ReadListItemId { get; set; }
+        public ReadListItem ReadListItem { get; set; }
         public AppUser User { get; set; }
 
     }

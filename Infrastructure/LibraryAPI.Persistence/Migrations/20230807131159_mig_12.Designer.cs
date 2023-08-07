@@ -4,6 +4,7 @@ using LibraryAPI.Persistence.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LibraryAPI.Persistence.Migrations
 {
     [DbContext(typeof(LibraryAPIDbContext))]
-    partial class LibraryAPIDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230807131159_mig_12")]
+    partial class mig_12
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -255,16 +258,9 @@ namespace LibraryAPI.Persistence.Migrations
                     b.Property<DateTime>("UpdatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("Id");
 
                     b.HasIndex("ReadListItemId");
-
-                    b.HasIndex("UserId")
-                        .IsUnique();
 
                     b.ToTable("ReadLists");
                 });
@@ -275,9 +271,6 @@ namespace LibraryAPI.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("BookId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
@@ -285,8 +278,6 @@ namespace LibraryAPI.Persistence.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("BookId");
 
                     b.ToTable("ReadListItems");
                 });
@@ -435,26 +426,7 @@ namespace LibraryAPI.Persistence.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("LibraryAPI.Domain.Entities.Identity.AppUser", "User")
-                        .WithOne("ReadList")
-                        .HasForeignKey("LibraryAPI.Domain.Entities.ReadList", "UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("ReadListItem");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("LibraryAPI.Domain.Entities.ReadListItem", b =>
-                {
-                    b.HasOne("LibraryAPI.Domain.Entities.Book", "Book")
-                        .WithMany("ReadListItems")
-                        .HasForeignKey("BookId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Book");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -505,17 +477,6 @@ namespace LibraryAPI.Persistence.Migrations
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("LibraryAPI.Domain.Entities.Book", b =>
-                {
-                    b.Navigation("ReadListItems");
-                });
-
-            modelBuilder.Entity("LibraryAPI.Domain.Entities.Identity.AppUser", b =>
-                {
-                    b.Navigation("ReadList")
                         .IsRequired();
                 });
 

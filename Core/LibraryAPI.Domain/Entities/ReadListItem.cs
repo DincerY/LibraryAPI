@@ -9,5 +9,8 @@ namespace LibraryAPI.Domain.Entities
 {
     public class ReadListItem : BaseEntity
     {
+        public Guid BookId { get; set; }
+        public ICollection<ReadList> ReadLists { get; set; }
+        public Book Book { get; set; }
     }
 }
