@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LibraryAPI.Persistence.Migrations
 {
     [DbContext(typeof(LibraryAPIDbContext))]
-    [Migration("20230807134559_mig_16")]
-    partial class mig_16
+    [Migration("20230808130629_mig_18")]
+    partial class mig_18
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -252,7 +252,7 @@ namespace LibraryAPI.Persistence.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("ReadListItemsId")
+                    b.Property<Guid>("ReadListItemId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("UpdatedDate")
@@ -264,7 +264,7 @@ namespace LibraryAPI.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ReadListItemsId");
+                    b.HasIndex("ReadListItemId");
 
                     b.HasIndex("UserId")
                         .IsUnique();
@@ -434,7 +434,7 @@ namespace LibraryAPI.Persistence.Migrations
                 {
                     b.HasOne("LibraryAPI.Domain.Entities.ReadListItem", "ReadListItem")
                         .WithMany("ReadLists")
-                        .HasForeignKey("ReadListItemsId")
+                        .HasForeignKey("ReadListItemId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
