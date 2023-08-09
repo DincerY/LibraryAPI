@@ -1,4 +1,8 @@
-﻿using LibraryAPI.Application.Repositories.ReadList;
+﻿using LibraryAPI.Application.Abstractions.Services;
+using LibraryAPI.Application.DTOs.ReadList;
+using LibraryAPI.Application.Models;
+using LibraryAPI.Application.Repositories.ReadList;
+using LibraryAPI.Domain.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,18 +12,18 @@ namespace LibraryAPI.API.Controllers
     [ApiController]
     public class ReadListsController : ControllerBase
     {
-        private readonly IReadListReadRepository _readListReadRepository;
-
-        public ReadListsController(IReadListReadRepository readListReadRepository)
+        private readonly IReadListService _readListService;
+        public ReadListsController(IReadListService readListService)
         {
-            _readListReadRepository = readListReadRepository;
+            _readListService = readListService;
         }
 
+
         [HttpGet]
-        public async Task<IActionResult> Get()
+        public IActionResult Get()
         {
-            //hata gözükmesin diye yaptım düzlticem
-            throw new Exception();
+            ReadListListModel result = _readListService.Get();
+            return Ok(result);
         }
     }
 }

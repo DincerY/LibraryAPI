@@ -10,6 +10,9 @@ using LibraryAPI.Persistence.Repositories.Library;
 using LibraryAPI.Persistence.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using System.Reflection;
+using LibraryAPI.Application.Repositories.ReadList;
+using LibraryAPI.Persistence.Repositories.ReadList;
 
 namespace LibraryAPI.Persistence
 {
@@ -37,14 +40,19 @@ namespace LibraryAPI.Persistence
             collection.AddScoped<ILibraryWriteRepository, LibraryWriteRepository>();
             collection.AddScoped<IAuthorReadRepository, AuthorReadRepository>();
             collection.AddScoped<IAuthorWriteRepository, AuthorWriteRepository>();
+            collection.AddScoped<IReadListReadRepository, ReadListReadRepository>();
+            collection.AddScoped<IReadListWriteRepository, ReadListWriteRepository>();
 
 
+            collection.AddAutoMapper(Assembly.GetExecutingAssembly());
 
             collection.AddScoped<IBookService, BookService>();
             collection.AddScoped<IAuthorService, AuthorService>();
             collection.AddScoped<ILibraryService, LibraryService>();
             collection.AddScoped<IUserService, UserService>();
             collection.AddScoped<IAuthService, AuthService>();
+            collection.AddScoped<IReadListService, ReadListService>();
+            
 
         }
     }
