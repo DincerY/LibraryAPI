@@ -22,7 +22,7 @@ namespace LibraryAPI.API.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            ReadListListModel result = _readListService.Get();
+            List<ReadList> result = _readListService.Get();
             return Ok(result);
         }
     }

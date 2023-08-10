@@ -9,15 +9,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentatio
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{F2D47353-D311-4FBD-95F3-8237D741F97E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibraryAPI.Domain", "Core\LibraryAPI.Domain\LibraryAPI.Domain.csproj", "{F06532D6-DDCC-4772-8AB3-30DCF72E8DA8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LibraryAPI.Domain", "Core\LibraryAPI.Domain\LibraryAPI.Domain.csproj", "{F06532D6-DDCC-4772-8AB3-30DCF72E8DA8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibraryAPI.Application", "Core\LibraryAPI.Application\LibraryAPI.Application.csproj", "{E0617202-434E-48A2-873D-78B69E9028D5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LibraryAPI.Application", "Core\LibraryAPI.Application\LibraryAPI.Application.csproj", "{E0617202-434E-48A2-873D-78B69E9028D5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibraryAPI.Infrastructure", "Infrastructure\LibraryAPI.Infrastructure\LibraryAPI.Infrastructure.csproj", "{89987692-4FCF-415D-B33B-2BA0AA2324C9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LibraryAPI.Infrastructure", "Infrastructure\LibraryAPI.Infrastructure\LibraryAPI.Infrastructure.csproj", "{89987692-4FCF-415D-B33B-2BA0AA2324C9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibraryAPI.Persistence", "Infrastructure\LibraryAPI.Persistence\LibraryAPI.Persistence.csproj", "{33673BF4-4149-4114-A60A-84C83EAEAF28}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LibraryAPI.Persistence", "Infrastructure\LibraryAPI.Persistence\LibraryAPI.Persistence.csproj", "{33673BF4-4149-4114-A60A-84C83EAEAF28}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibraryAPI.API", "Presentation\LibraryAPI.API\LibraryAPI.API.csproj", "{E720F07A-7E1E-4B67-87EC-282775E8AED2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LibraryAPI.API", "Presentation\LibraryAPI.API\LibraryAPI.API.csproj", "{E720F07A-7E1E-4B67-87EC-282775E8AED2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CrossCuttingConcerns", "CrossCuttingConcerns", "{D140DEAD-71ED-409B-B847-DC4A2F9F59F6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Exceptions", "CrossCuttingConcerns\Exceptions\Exceptions.csproj", "{E1A11250-7D33-42C2-A892-800EBE44C7BD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +49,10 @@ Global
 		{E720F07A-7E1E-4B67-87EC-282775E8AED2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E720F07A-7E1E-4B67-87EC-282775E8AED2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E720F07A-7E1E-4B67-87EC-282775E8AED2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E1A11250-7D33-42C2-A892-800EBE44C7BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E1A11250-7D33-42C2-A892-800EBE44C7BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E1A11250-7D33-42C2-A892-800EBE44C7BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E1A11250-7D33-42C2-A892-800EBE44C7BD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -55,6 +63,7 @@ Global
 		{89987692-4FCF-415D-B33B-2BA0AA2324C9} = {F2D47353-D311-4FBD-95F3-8237D741F97E}
 		{33673BF4-4149-4114-A60A-84C83EAEAF28} = {F2D47353-D311-4FBD-95F3-8237D741F97E}
 		{E720F07A-7E1E-4B67-87EC-282775E8AED2} = {3E3DAC76-1C26-4437-B421-ADEF38BCE186}
+		{E1A11250-7D33-42C2-A892-800EBE44C7BD} = {D140DEAD-71ED-409B-B847-DC4A2F9F59F6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4808E23D-21A6-4CE5-912C-090FBCCB51FD}

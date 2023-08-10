@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -20,6 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\CrossCuttingConcerns\Exceptions\Exceptions.csproj" />
     <ProjectReference Include="..\..\Infrastructure\LibraryAPI.Infrastructure\LibraryAPI.Infrastructure.csproj" />
     <ProjectReference Include="..\..\Infrastructure\LibraryAPI.Persistence\LibraryAPI.Persistence.csproj" />
   </ItemGroup>

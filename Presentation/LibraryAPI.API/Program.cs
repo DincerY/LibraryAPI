@@ -6,11 +6,13 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using System.Text.Json.Serialization;
+using Exceptions;
 using LibraryAPI.Infrastructure;
 using Newtonsoft.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddSwaggerGen();
 builder.Services.AddPersistenceServices();
 builder.Services.AddInfrastructureServices();
 
@@ -41,9 +43,9 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 });
 
 builder.Services.AddControllers();
-builder.Services.AddControllers(options=>
-    options.Filters.Add<ValidationFilter>()).AddFluentValidation(configuration =>
-    configuration.RegisterValidatorsFromAssemblyContaining<CreateBookValidator>());
+//builder.Services.AddControllers(options=>
+//    options.Filters.Add<ValidationFilter>()).AddFluentValidation(configuration =>
+//    configuration.RegisterValidatorsFromAssemblyContaining<CreateBookValidator>());
 
 builder.Services.AddControllers().AddJsonOptions(option =>
 {
@@ -66,6 +68,11 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+}
+
+if (app.Environment.IsProduction())
+{
+    app.ConfigureCustomExceptionMiddleware();
 }
 
 app.UseHttpsRedirection();

@@ -9,6 +9,7 @@ using LibraryAPI.Application.DTOs.ReadList;
 using LibraryAPI.Application.Models;
 using LibraryAPI.Application.Repositories.ReadList;
 using LibraryAPI.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace LibraryAPI.Persistence.Services
 {
@@ -22,19 +23,11 @@ namespace LibraryAPI.Persistence.Services
             _mapper = mapper;
         }
 
-        public ReadListListModel Get()
+        public List<ReadList> Get()
         {
-            List<ReadList> readLists = _readListReadRepository.GetAll().ToList();
+            List<ReadList> readLists = _readListReadRepository.GetAll().Include(r=>r.ReadListItem).Include(r=>r.User).ToList();
 
-            List<ReadListDto> readListDto = new List<ReadListDto>();
-           
-            //Repositoryden dönen veriyi Dto şekline çevirmeliyim.
-
-            ReadListListModel readListListModel = new()
-            {
-                
-            };
-            return readListListModel;
+            return readLists;
         }
 
         public Task<ReadList> GetUsersReadList(string id)

@@ -11,7 +11,7 @@ namespace LibraryAPI.Application.Abstractions.Services
 {
     public interface IReadListService
     {
-        public ReadListListModel Get();
+        public List<ReadList> Get();
         public Task<ReadList> GetUsersReadList(string id);
     }
 }
