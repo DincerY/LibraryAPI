@@ -23,16 +23,20 @@ namespace LibraryAPI.Persistence.Services
             _mapper = mapper;
         }
 
-        public List<ReadList> Get()
+        public async Task<List<ReadList>> GetAsync()
         {
-            List<ReadList> readLists = _readListReadRepository.GetAll().Include(r=>r.ReadListItem).Include(r=>r.User).ToList();
+            List<ReadList> readLists =await _readListReadRepository.GetAll().Include(r=>r.ReadListItem).Include(r=>r.User).ToListAsync();
 
             return readLists;
         }
 
-        public Task<ReadList> GetUsersReadList(string id)
+        public async Task<ReadList> GetUsersReadListAsync(string id)
         {
-            throw new NotImplementedException();
+
+            List<ReadList> readLists =await _readListReadRepository.GetAll().Include(r => r.ReadListItem).Include(r=>r.ReadListItem.Book).Include(r => r.User).ToListAsync();
+            ReadList? readList = readLists.Find(x => x.UserId == id);
+            return readList;
+
         }
     }
 }

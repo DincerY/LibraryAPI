@@ -1,4 +1,5 @@
-﻿using LibraryAPI.Application.Abstractions.Services;
+﻿using AutoMapper;
+using LibraryAPI.Application.Abstractions.Services;
 using LibraryAPI.Application.DTOs.ReadList;
 using LibraryAPI.Application.Models;
 using LibraryAPI.Application.Repositories.ReadList;
@@ -13,17 +14,44 @@ namespace LibraryAPI.API.Controllers
     public class ReadListsController : ControllerBase
     {
         private readonly IReadListService _readListService;
-        public ReadListsController(IReadListService readListService)
+        private readonly IMapper _mapper;
+        public ReadListsController(IReadListService readListService, IMapper mapper)
         {
             _readListService = readListService;
+            _mapper = mapper;
         }
-
 
         [HttpGet]
-        public IActionResult Get()
+        public async Task<IActionResult> Get()
         {
-            List<ReadList> result = _readListService.Get();
+            List<ReadList> result =await _readListService.GetAsync();
             return Ok(result);
         }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById([FromRoute] string id)
+        {
+            ReadList result = await _readListService.GetUsersReadListAsync(id);
+            //ReadListDto dto = _mapper.Map<ReadListDto>(result);
+            ReadListDto dto = new()
+            {
+                Id = result.Id,
+                ReadListItem = new()
+                {
+                    Book = new()
+                    {
+                        Description = result.ReadListItem.Book.Description,
+                        Id = result.ReadListItem.BookId,
+                        PageNumber = result.ReadListItem.Book.PageNumber,
+                        Title = result.ReadListItem.Book.Title,
+                    }
+
+                },
+                ReadListItemId = result.ReadListItemId,
+                UserId = result.UserId,
+            };
+            return Ok(dto);
+        }
+
     }
 }

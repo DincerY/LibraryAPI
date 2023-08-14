@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using LibraryAPI.Application.DTOs.ReadList;
 using LibraryAPI.Application.Models;
+using LibraryAPI.Domain.Entities;
 
 namespace LibraryAPI.Application.MappingProfiles.ReadList
 {
@@ -15,6 +16,8 @@ namespace LibraryAPI.Application.MappingProfiles.ReadList
         {
             CreateMap<List<Domain.Entities.ReadList>, List<ReadListDto>>().ReverseMap();
             CreateMap<Domain.Entities.ReadList, ReadListDto>().ReverseMap();
+            CreateMap<ReadListItemDto, ReadListItem>().ReverseMap();
+            CreateMap<BookDto, Book>().ReverseMap();
         }
     }
 }
