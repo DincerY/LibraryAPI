@@ -20,7 +20,7 @@ namespace LibraryAPI.Infrastructure.Token
             _configuration = configuration;
         }
 
-        public Application.DTOs.Token.Token CreateAccessToken(int seconds)
+        public Application.DTOs.Token.Token CreateAccessToken(int minutes)
         {
             Application.DTOs.Token.Token token = new Application.DTOs.Token.Token();
 
@@ -29,7 +29,7 @@ namespace LibraryAPI.Infrastructure.Token
             //Şifrelenmiş kimliği oluşturuyoruz
             SigningCredentials signingCredentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
-            token.ExpirationDate = DateTime.UtcNow.AddSeconds(seconds);
+            token.ExpirationDate = DateTime.UtcNow.AddMinutes(minutes);
             JwtSecurityToken jwtSecurityToken = new JwtSecurityToken(
                 audience: _configuration["Token:Audience"],
                 issuer: _configuration["Token:Issuer"],

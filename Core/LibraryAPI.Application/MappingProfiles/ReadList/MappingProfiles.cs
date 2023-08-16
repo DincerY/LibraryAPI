@@ -15,9 +15,7 @@ namespace LibraryAPI.Application.MappingProfiles.ReadList
         public MappingProfiles()
         {
             CreateMap<List<Domain.Entities.ReadList>, List<ReadListDto>>().ReverseMap();
-            CreateMap<Domain.Entities.ReadList, ReadListDto>().ReverseMap();
-            CreateMap<ReadListItemDto, ReadListItem>().ReverseMap();
-            CreateMap<BookDto, Book>().ReverseMap();
+
         }
     }
 }

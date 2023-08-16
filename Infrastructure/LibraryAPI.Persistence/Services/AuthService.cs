@@ -82,7 +82,7 @@ namespace LibraryAPI.Persistence.Services
             if (user != null && user.RefreshTokenEndDate > DateTime.UtcNow)
             {
                 Token token = _tokenHandler.CreateAccessToken(15);
-                await _userService.UpdateRefreshTokenAsync(user, token.RefreshToken, token.ExpirationDate, 15);
+                await _userService.UpdateRefreshTokenAsync(user, token.RefreshToken, token.ExpirationDate, 10);
                 return new LoginUserResponse
                 {
                     Message = "Refresh token ile giriş başarılı",

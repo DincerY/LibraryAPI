@@ -8,7 +8,7 @@ namespace LibraryAPI.Application.Abstractions.Token
 {
     public interface ITokenHandler
     {
-        DTOs.Token.Token CreateAccessToken(int seconds);
+        DTOs.Token.Token CreateAccessToken(int minutes);
         string CreateRefreshToken();
     }
 }

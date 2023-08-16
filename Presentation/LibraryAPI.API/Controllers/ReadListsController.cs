@@ -32,7 +32,7 @@ namespace LibraryAPI.API.Controllers
         public async Task<IActionResult> GetById([FromRoute] string id)
         {
             ReadList result = await _readListService.GetUsersReadListAsync(id);
-            //ReadListDto dto = _mapper.Map<ReadListDto>(result);
+            //ReadListDto mappedDto = _mapper.Map<ReadListDto>(result);
             ReadListDto dto = new()
             {
                 Id = result.Id,

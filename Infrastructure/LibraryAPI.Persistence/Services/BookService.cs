@@ -26,7 +26,7 @@ namespace LibraryAPI.Persistence.Services
             return books;
         }
 
-        public async Task<object> GetBookByIdAsync(string id)
+        public async Task<Book> GetBookByIdAsync(string id)
         {
             Book book =await _bookReadRepository.GetByIdAsync(id);
             return book;
