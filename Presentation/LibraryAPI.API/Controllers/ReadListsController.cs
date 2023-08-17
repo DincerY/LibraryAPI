@@ -1,10 +1,7 @@
 ﻿using AutoMapper;
 using LibraryAPI.Application.Abstractions.Services;
 using LibraryAPI.Application.DTOs.ReadList;
-using LibraryAPI.Application.Models;
-using LibraryAPI.Application.Repositories.ReadList;
 using LibraryAPI.Domain.Entities;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LibraryAPI.API.Controllers
@@ -24,32 +21,23 @@ namespace LibraryAPI.API.Controllers
         [HttpGet]
         public async Task<IActionResult> Get()
         {
+            string userId;
+            string readListItem;
+            string user;
+            string userName, userSurname;
+            Guid id;
             List<ReadList> result =await _readListService.GetAsync();
-            return Ok(result);
+            IEnumerable<ICollection<ReadListItem>> readList = result.Select(r => r.ReadListItems);
+            IEnumerable<string> userNamee = result.Select(r => r.User.Name);
+            return Ok(readList);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById([FromRoute] string id)
         {
             ReadList result = await _readListService.GetUsersReadListAsync(id);
-            //ReadListDto mappedDto = _mapper.Map<ReadListDto>(result);
-            ReadListDto dto = new()
-            {
-                Id = result.Id,
-                ReadListItem = new()
-                {
-                    Book = new()
-                    {
-                        //Description = result.ReadListItem.Book.Description,
-                        //Id = result.ReadListItem.BookId,
-                        //PageNumber = result.ReadListItem.Book.PageNumber,
-                        //Title = result.ReadListItem.Book.Title,
-                    }
 
-                },
-           
-                UserId = result.UserId,
-            };
+            ReadListDto dto = _readListService.ReadListToReadListDto(result);
             return Ok(dto);
         }
 

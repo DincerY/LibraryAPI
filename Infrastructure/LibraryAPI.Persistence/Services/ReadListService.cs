@@ -25,21 +25,63 @@ namespace LibraryAPI.Persistence.Services
 
         public async Task<List<ReadList>> GetAsync()
         {
-            List<ReadList> readLists = await _readListReadRepository.GetAll().Include(r => r.ReadListItems).Include(r => r.User).ToListAsync();
+            List<ReadList> readLists = await _readListReadRepository
+                .GetAll()
+                .Include(r => r.ReadListItems)
+                .Include(r=>r.User)
+                .ToListAsync();
 
             return readLists;
-            return null;
         }
 
         public async Task<ReadList> GetUsersReadListAsync(string id)
         {
 
-            List<ReadList> readLists = await _readListReadRepository.GetAll().Include(r => r.ReadListItems).Include(r => r.User).ToListAsync();
+            List<ReadList> readLists = await _readListReadRepository
+                .GetAll()
+                .Include(r => r.ReadListItems)
+                .ThenInclude(rli=>rli.Book)
+                .ThenInclude(b=>b.Librarys)
+
+
+                .Include(r => r.ReadListItems)
+                .ThenInclude(rli => rli.Book)
+                .ThenInclude(b => b.Authors)
+
+                .ToListAsync();
 
 
             ReadList? readList = readLists.Find(x => x.UserId == id);
             return readList;
-            return null;
         }
+
+        public ReadListDto ReadListToReadListDto(ReadList readLists)
+        {
+            IEnumerable<Book> readListItemBooks = readLists.ReadListItems.Select(r => r.Book).ToArray();
+            List<BookDto> books = new();
+            BookDto bookDto = new();
+            foreach (var book in readListItemBooks)
+            {
+                bookDto.Id = book.Id;
+                bookDto.Description = book.Description;
+                bookDto.Title = book.Title;
+                bookDto.LibraryName = book.Librarys.Select(l => l.Name).ToArray();
+                bookDto.AuthorName = book.Authors.Select(a => a.Name).ToArray();
+                bookDto.PageNumber = book.PageNumber;
+                books.Add(bookDto);
+            }
+
+            ReadListDto dto = new()
+            {
+                UserId = readLists.UserId,
+                Id = readLists.Id,
+                ReadListItem = new ReadListItemDto()
+                {
+                    Book = books
+                },
+            };
+            return dto;
+        }
+
     }
 }
