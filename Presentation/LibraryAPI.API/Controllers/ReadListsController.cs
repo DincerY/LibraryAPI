@@ -27,7 +27,9 @@ namespace LibraryAPI.API.Controllers
             string userName, userSurname;
             Guid id;
             List<ReadList> result =await _readListService.GetAsync();
+
             IEnumerable<ICollection<ReadListItem>> readList = result.Select(r => r.ReadListItems);
+
             IEnumerable<string> userNamee = result.Select(r => r.User.Name);
             return Ok(readList);
         }
