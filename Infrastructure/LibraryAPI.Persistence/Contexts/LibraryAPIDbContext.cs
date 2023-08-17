@@ -29,8 +29,8 @@ namespace LibraryAPI.Persistence.Contexts
             builder.Entity<ReadList>().HasKey(rl => rl.Id);
             builder.Entity<ReadListItem>().HasKey(rli => rli.Id);
 
-            builder.Entity<ReadList>().HasOne(rl=> rl.ReadListItem).WithMany(rli => rli.ReadLists)
-                .HasForeignKey(rl => rl.ReadListItemId);
+            builder.Entity<ReadList>().HasMany(rl=> rl.ReadListItems).WithOne(rli => rli.ReadList)
+                .HasForeignKey(rl => rl.ReadListId);
 
             builder.Entity<ReadList>().HasOne(rl => rl.User).WithOne(u => u.ReadList).HasForeignKey<ReadList>(rl=>rl.UserId);
 

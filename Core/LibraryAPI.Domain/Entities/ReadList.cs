@@ -11,8 +11,7 @@ namespace LibraryAPI.Domain.Entities
     public class ReadList : BaseEntity
     {
         public string UserId { get; set; }
-        public Guid ReadListItemId { get; set; }
-        public ReadListItem ReadListItem { get; set; }
+        public ICollection<ReadListItem> ReadListItems { get; set; }
         public AppUser User { get; set; }
 
     }

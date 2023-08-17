@@ -78,11 +78,11 @@ namespace LibraryAPI.Persistence.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "ReadLists");
+            //migrationBuilder.DropTable(
+            //    name: "ReadLists");
 
-            migrationBuilder.DropTable(
-                name: "ReadListItems");
+            //migrationBuilder.DropTable(
+            //    name: "ReadListItems");
         }
     }
 }

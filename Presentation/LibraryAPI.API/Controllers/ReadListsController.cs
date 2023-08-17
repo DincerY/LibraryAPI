@@ -40,14 +40,14 @@ namespace LibraryAPI.API.Controllers
                 {
                     Book = new()
                     {
-                        Description = result.ReadListItem.Book.Description,
-                        Id = result.ReadListItem.BookId,
-                        PageNumber = result.ReadListItem.Book.PageNumber,
-                        Title = result.ReadListItem.Book.Title,
+                        //Description = result.ReadListItem.Book.Description,
+                        //Id = result.ReadListItem.BookId,
+                        //PageNumber = result.ReadListItem.Book.PageNumber,
+                        //Title = result.ReadListItem.Book.Title,
                     }
 
                 },
-                ReadListItemId = result.ReadListItemId,
+           
                 UserId = result.UserId,
             };
             return Ok(dto);

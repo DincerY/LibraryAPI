@@ -25,18 +25,21 @@ namespace LibraryAPI.Persistence.Services
 
         public async Task<List<ReadList>> GetAsync()
         {
-            List<ReadList> readLists =await _readListReadRepository.GetAll().Include(r=>r.ReadListItem).Include(r=>r.User).ToListAsync();
+            List<ReadList> readLists = await _readListReadRepository.GetAll().Include(r => r.ReadListItems).Include(r => r.User).ToListAsync();
 
             return readLists;
+            return null;
         }
 
         public async Task<ReadList> GetUsersReadListAsync(string id)
         {
 
-            List<ReadList> readLists =await _readListReadRepository.GetAll().Include(r => r.ReadListItem).Include(r=>r.ReadListItem.Book).Include(r => r.User).ToListAsync();
+            List<ReadList> readLists = await _readListReadRepository.GetAll().Include(r => r.ReadListItems).Include(r => r.User).ToListAsync();
+
+
             ReadList? readList = readLists.Find(x => x.UserId == id);
             return readList;
-
+            return null;
         }
     }
 }
