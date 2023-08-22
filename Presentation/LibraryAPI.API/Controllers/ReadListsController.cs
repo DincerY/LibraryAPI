@@ -34,8 +34,16 @@ namespace LibraryAPI.API.Controllers
                         PageNumber = rl.Book.PageNumber,
                         Title = rl.Book.Title,
                         Description = rl.Book.Description,
-                        AuthorName = rl.Book.Authors.Select(a => a.Name).ToArray(),
-                        LibraryName = rl.Book.Authors.Select(l => l.Name).ToArray()
+                        Authors = rl.Book.Authors.Select(a => new AuthorDto()
+                        {
+                            AuthorName = a.Name,
+                            AuthorSurname = a.Surname,
+                        }).ToArray(),
+                        Libraries = rl.Book.Librarys.Select(l => new LibraryDto()
+                        {
+                            LibraryName = l.Name,
+                            LibraryAddress = l.Address,
+                        }).ToArray()
                     }
                 }).ToList(),
                 UserName = r.User.Name,
@@ -50,6 +58,7 @@ namespace LibraryAPI.API.Controllers
         [HttpGet("{userId}")]
         public async Task<IActionResult> GetById([FromRoute] string userId)
         {
+
             ReadList result = await _readListService.GetUsersReadListAsync(userId);
 
             ReadListDto dto = new ReadListDto()
@@ -67,8 +76,16 @@ namespace LibraryAPI.API.Controllers
                         Description = rli.Book.Description,
                         PageNumber = rli.Book.PageNumber,
                         Title = rli.Book.Title,
-                        AuthorName = rli.Book.Authors.Select(a => a.Name).ToArray(),
-                        LibraryName = rli.Book.Librarys.Select(l => l.Name).ToArray()
+                        Authors = rli.Book.Authors.Select(a=>new AuthorDto()
+                        {
+                            AuthorName = a.Name,
+                            AuthorSurname = a.Surname,
+                        }).ToArray(),
+                        Libraries = rli.Book.Librarys.Select(l=> new LibraryDto()
+                        {
+                            LibraryName = l.Name,
+                            LibraryAddress = l.Address,
+                        }).ToArray()
                     }
                 }).ToList()
             };
