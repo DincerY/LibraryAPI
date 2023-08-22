@@ -12,7 +12,7 @@ namespace LibraryAPI.Application.DTOs.ReadList
         public string PageNumber { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
-        public IEnumerable<string> LibraryName { get; set; }
-        public IEnumerable<string> AuthorName { get; set; }
+        public string[] LibraryName { get; set; }
+        public string[] AuthorName { get; set; }
     }
 }

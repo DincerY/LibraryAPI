@@ -34,8 +34,8 @@ namespace LibraryAPI.API.Controllers
                         PageNumber = rl.Book.PageNumber,
                         Title = rl.Book.Title,
                         Description = rl.Book.Description,
-                        AuthorName = rl.Book.Authors.Select(a => a.Name),
-                        LibraryName = rl.Book.Authors.Select(l => l.Name),
+                        AuthorName = rl.Book.Authors.Select(a => a.Name).ToArray(),
+                        LibraryName = rl.Book.Authors.Select(l => l.Name).ToArray()
                     }
                 }).ToList(),
                 UserName = r.User.Name,
@@ -67,8 +67,8 @@ namespace LibraryAPI.API.Controllers
                         Description = rli.Book.Description,
                         PageNumber = rli.Book.PageNumber,
                         Title = rli.Book.Title,
-                        AuthorName = rli.Book.Authors.Select(a => a.Name),
-                        LibraryName = rli.Book.Librarys.Select(l => l.Name)
+                        AuthorName = rli.Book.Authors.Select(a => a.Name).ToArray(),
+                        LibraryName = rli.Book.Librarys.Select(l => l.Name).ToArray()
                     }
                 }).ToList()
             };
