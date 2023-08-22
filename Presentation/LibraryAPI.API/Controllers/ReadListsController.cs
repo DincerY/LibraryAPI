@@ -21,25 +21,57 @@ namespace LibraryAPI.API.Controllers
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            string userId;
-            string readListItem;
-            string user;
-            string userName, userSurname;
-            Guid id;
-            List<ReadList> result =await _readListService.GetAsync();
+            List<ReadList> result = await _readListService.GetAsync();
+            IEnumerable<ReadListDto> readListDtos = result.Select(r => new ReadListDto()
+            {
+                Id = r.Id,
+                ReadListItem = r.ReadListItems.Select(rl => new ReadListItemDto()
+                {
+                    ReadListItemId = rl.Id,
+                    Book = new BookDto()
+                    {
+                        Id = rl.Book.Id,
+                        PageNumber = rl.Book.PageNumber,
+                        Title = rl.Book.Title,
+                        Description = rl.Book.Description,
+                        AuthorName = rl.Book.Authors.Select(a => a.Name),
+                        LibraryName = rl.Book.Authors.Select(l => l.Name),
+                    }
+                }).ToList(),
+                UserName = r.User.Name,
+                UserSurname = r.User.Surname,
+                UserId = r.User.Id,
+                
+            });
 
-            IEnumerable<ICollection<ReadListItem>> readList = result.Select(r => r.ReadListItems);
-
-            IEnumerable<string> userNamee = result.Select(r => r.User.Name);
-            return Ok(readList);
+            return Ok(readListDtos);
         }
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetById([FromRoute] string id)
+        [HttpGet("{userId}")]
+        public async Task<IActionResult> GetById([FromRoute] string userId)
         {
-            ReadList result = await _readListService.GetUsersReadListAsync(id);
+            ReadList result = await _readListService.GetUsersReadListAsync(userId);
 
-            ReadListDto dto = _readListService.ReadListToReadListDto(result);
+            ReadListDto dto = new ReadListDto()
+            {
+                Id = result.Id,
+                UserId = result.UserId,
+                UserName = result.User.Name,
+                UserSurname = result.User.Surname,
+                ReadListItem = result.ReadListItems.Select(rli => new ReadListItemDto()
+                {
+                    ReadListItemId = rli.Id,
+                    Book = new BookDto()
+                    {
+                        Id = rli.Book.Id,
+                        Description = rli.Book.Description,
+                        PageNumber = rli.Book.PageNumber,
+                        Title = rli.Book.Title,
+                        AuthorName = rli.Book.Authors.Select(a => a.Name),
+                        LibraryName = rli.Book.Librarys.Select(l => l.Name)
+                    }
+                }).ToList()
+            };
             return Ok(dto);
         }
 

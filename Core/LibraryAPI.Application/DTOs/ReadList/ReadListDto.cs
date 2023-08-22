@@ -12,8 +12,9 @@ namespace LibraryAPI.Application.DTOs.ReadList
     {
         public Guid Id { get; set; }
         public string UserId { get; set; }
-        public Guid ReadListItemId { get; set; }
-        public ReadListItemDto ReadListItem { get; set; }
+        public string UserName { get; set; }
+        public string UserSurname { get; set; }
+        public List<ReadListItemDto> ReadListItem { get; set; }
         
     }
 }

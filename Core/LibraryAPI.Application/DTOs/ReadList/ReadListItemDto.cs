@@ -9,6 +9,7 @@ namespace LibraryAPI.Application.DTOs.ReadList
 {
     public class ReadListItemDto
     {
-        public IEnumerable<BookDto> Book { get; set; }
+        public Guid ReadListItemId { get; set; }
+        public BookDto Book { get; set; }
     }
 }

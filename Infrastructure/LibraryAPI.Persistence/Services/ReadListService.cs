@@ -28,6 +28,9 @@ namespace LibraryAPI.Persistence.Services
             List<ReadList> readLists = await _readListReadRepository
                 .GetAll()
                 .Include(r => r.ReadListItems)
+                .ThenInclude(rli=>rli.Book).ThenInclude(b=>b.Authors)
+                .Include(r => r.ReadListItems)
+                .ThenInclude(rli => rli.Book).ThenInclude(b => b.Librarys)
                 .Include(r=>r.User)
                 .ToListAsync();
 
@@ -48,6 +51,8 @@ namespace LibraryAPI.Persistence.Services
                 .ThenInclude(rli => rli.Book)
                 .ThenInclude(b => b.Authors)
 
+                .Include(rl=>rl.User)
+
                 .ToListAsync();
 
 
@@ -55,33 +60,7 @@ namespace LibraryAPI.Persistence.Services
             return readList;
         }
 
-        public ReadListDto ReadListToReadListDto(ReadList readLists)
-        {
-            IEnumerable<Book> readListItemBooks = readLists.ReadListItems.Select(r => r.Book).ToArray();
-            List<BookDto> books = new();
-            BookDto bookDto = new();
-            foreach (var book in readListItemBooks)
-            {
-                bookDto.Id = book.Id;
-                bookDto.Description = book.Description;
-                bookDto.Title = book.Title;
-                bookDto.LibraryName = book.Librarys.Select(l => l.Name).ToArray();
-                bookDto.AuthorName = book.Authors.Select(a => a.Name).ToArray();
-                bookDto.PageNumber = book.PageNumber;
-                books.Add(bookDto);
-            }
-
-            ReadListDto dto = new()
-            {
-                UserId = readLists.UserId,
-                Id = readLists.Id,
-                ReadListItem = new ReadListItemDto()
-                {
-                    Book = books
-                },
-            };
-            return dto;
-        }
+      
 
     }
 }

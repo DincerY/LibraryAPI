@@ -13,6 +13,5 @@ namespace LibraryAPI.Application.Abstractions.Services
     {
         public Task<List<ReadList>> GetAsync();
         public Task<ReadList> GetUsersReadListAsync(string id);
-        public ReadListDto ReadListToReadListDto(ReadList readLists);
     }
 }
