@@ -1,8 +1,8 @@
-﻿using System.Net;
-using System.Net.Mime;
-using FluentValidation;
+﻿using FluentValidation;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
+using System.Net.Mime;
 
 namespace Exceptions
 {
@@ -44,7 +44,7 @@ namespace Exceptions
             context.Response.StatusCode = Convert.ToInt32(HttpStatusCode.BadRequest);
             object errors = ((ValidationException)exception).Errors;
 
-            return context.Response.WriteAsync(new ValidationProblemDetails
+            return context.Response.WriteAsync(new HttpProblemDetails.ValidationProblemDetails()
             {
                 Status = StatusCodes.Status400BadRequest,
                 Type = "https://example.com/probs/validation",

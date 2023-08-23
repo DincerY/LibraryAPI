@@ -21,7 +21,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LibraryAPI.API", "Presentat
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CrossCuttingConcerns", "CrossCuttingConcerns", "{D140DEAD-71ED-409B-B847-DC4A2F9F59F6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Exceptions", "CrossCuttingConcerns\Exceptions\Exceptions.csproj", "{E1A11250-7D33-42C2-A892-800EBE44C7BD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Exceptions", "CrossCuttingConcerns\Exceptions\Exceptions.csproj", "{E1A11250-7D33-42C2-A892-800EBE44C7BD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

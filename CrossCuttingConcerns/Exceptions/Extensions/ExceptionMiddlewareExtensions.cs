@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 
-namespace Exceptions
+namespace Exceptions.Extensions
 {
     public static class ExceptionMiddlewareExtensions
     {

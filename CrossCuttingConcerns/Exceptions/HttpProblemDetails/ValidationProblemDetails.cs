@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
-namespace Exceptions
+namespace Exceptions.HttpProblemDetails
 {
     public class ValidationProblemDetails : ProblemDetails
     {
