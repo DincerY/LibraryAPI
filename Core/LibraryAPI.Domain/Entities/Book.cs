@@ -10,11 +10,17 @@ namespace LibraryAPI.Domain.Entities
 {
     public class Book : BaseEntity
     {
+        public Book()
+        {
+            Librarys = new HashSet<Library>();
+            Authors = new HashSet<Author>();
+            ReadListItems = new HashSet<ReadListItem>();
+        }
         public string PageNumber { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
-        public ICollection<Library> Librarys { get; set; }
-        public ICollection<Author> Authors { get; set; }
-        public ICollection<ReadListItem> ReadListItems { get; set; }
+        public ICollection<Library>? Librarys { get; set; }
+        public ICollection<Author>? Authors { get; set; }
+        public ICollection<ReadListItem>? ReadListItems { get; set; }
     }
 }

@@ -16,11 +16,9 @@ namespace LibraryAPI.Persistence.Services
     public class ReadListService : IReadListService
     {
         private readonly IReadListReadRepository _readListReadRepository;
-        private readonly IMapper _mapper;
-        public ReadListService(IReadListReadRepository readListReadRepository, IMapper mapper)
+        public ReadListService(IReadListReadRepository readListReadRepository)
         {
             _readListReadRepository = readListReadRepository;
-            _mapper = mapper;
         }
 
         public async Task<List<ReadList>> GetAsync()

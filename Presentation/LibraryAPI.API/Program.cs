@@ -11,12 +11,14 @@ using Newtonsoft.Json;
 using Microsoft.OpenApi.Models;
 using Exceptions.Extensions;
 using LibraryAPI.API.Extensions;
+using LibraryAPI.Application;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddSwaggerAuthExtension();
 builder.Services.AddPersistenceServices();
 builder.Services.AddInfrastructureServices();
+builder.Services.AddApplicationServices();
 
 
 builder.Services.AddStackExchangeRedisCache(option =>

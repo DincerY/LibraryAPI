@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="12.0.1" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
     <PackageReference Include="FluentValidation" Version="11.5.2" />
     <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
     <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.5.2" />
@@ -25,7 +26,6 @@
     <Folder Include="Features\Books\Commands\Update\" />
     <Folder Include="Features\Books\Constants\" />
     <Folder Include="Features\Books\Rules\" />
-    <Folder Include="Features\Books\Profiles\" />
     <Folder Include="Features\Books\Queries\" />
   </ItemGroup>
 

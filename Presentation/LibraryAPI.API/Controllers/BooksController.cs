@@ -1,5 +1,6 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using LibraryAPI.Application.Abstractions.Services;
+using LibraryAPI.Application.Features.Books.Commands.Create;
 using LibraryAPI.Application.ViewModels.Books;
 using LibraryAPI.Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
@@ -12,7 +13,7 @@ namespace LibraryAPI.API.Controllers
     [Route("api/[controller]")]
     [ApiController] 
 
-    public class BooksController : ControllerBase
+    public class BooksController : BaseController
     {
         readonly IBookService _bookService;
          readonly IDistributedCache _distributedCache;
@@ -37,10 +38,10 @@ namespace LibraryAPI.API.Controllers
         }
         [Authorize(AuthenticationSchemes = "Admin")]
         [HttpPost]
-        public async Task<IActionResult> CreateBook([FromBody]Book_Create_VM bookCreateVm)
+        public async Task<IActionResult> Add([FromBody]CreateBookCommand createBookCommand)
         {
-            var result = await _bookService.CreateBookAsync(bookCreateVm);
-            return Ok(result);
+            CreatedBookResponse response = await MediatoR.Send(createBookCommand);
+            return Ok(response);
         }
         [Authorize(AuthenticationSchemes = "Admin")]
         [HttpPut]

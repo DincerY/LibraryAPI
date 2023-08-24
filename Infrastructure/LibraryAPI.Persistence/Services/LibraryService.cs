@@ -72,18 +72,18 @@ namespace LibraryAPI.Persistence.Services
                 //Books = books
             });
             int a = await _libraryWriteRepository.SaveAsync();
-            response.Succeeded = result;
-            if (result)
-            {
-                response.Message = "Ekleme işlemi başarılı";
-                return response;
-            }
-            else
-            {
-                response.Message = "Eklenirken bi hata meydana geldi";
-                return response;
-            }
-
+            //response.Succeeded = result;
+            //if (result)
+            //{
+            //    response.Message = "Ekleme işlemi başarılı";
+            //    return response;
+            //}
+            //else
+            //{
+            //    response.Message = "Eklenirken bi hata meydana geldi";
+            //    return response;
+            //}
+            return null;
 
         }
     }

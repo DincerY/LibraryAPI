@@ -11,11 +11,9 @@ namespace LibraryAPI.API.Controllers
     public class ReadListsController : ControllerBase
     {
         private readonly IReadListService _readListService;
-        private readonly IMapper _mapper;
-        public ReadListsController(IReadListService readListService, IMapper mapper)
+        public ReadListsController(IReadListService readListService)
         {
             _readListService = readListService;
-            _mapper = mapper;
         }
 
         [HttpGet]

@@ -13,7 +13,7 @@ namespace LibraryAPI.Application.Abstractions.Services
         Task<List<Book>> GetAllBooksAsync();
         Task<Book> GetBookByIdAsync(string id);
         Task<List<Book>> GetBooksByIdsAsync(string[] ids);
-        Task<bool> CreateBookAsync(Book_Create_VM bookCreateVm);
+        Task<Book> CreateBookAsync(Book_Create_VM bookCreateVm);
         Task<bool> UpdateBookAsync(string id, string degistirilecek_Veri);
 
         Task<bool> DeleteBookAsync(string id);

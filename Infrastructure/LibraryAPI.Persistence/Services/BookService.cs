@@ -44,7 +44,7 @@ namespace LibraryAPI.Persistence.Services
         }
 
 
-        public async Task<bool> CreateBookAsync(Book_Create_VM bookCreateVm)
+        public async Task<Book> CreateBookAsync(Book_Create_VM bookCreateVm)
         {
             List<Library>? libraries = await _libraryService.GetLibrariesByIds(bookCreateVm.LibraryId);
             List<Author>? authors = await _authorService.GetAuthorsByIds(bookCreateVm.AuthorId);
