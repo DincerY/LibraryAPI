@@ -1,17 +1,13 @@
-using FluentValidation.AspNetCore;
-using LibraryAPI.Application.Validators.Books;
-using LibraryAPI.Infrastructure.Filters;
-using LibraryAPI.Persistence;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
-using System.Text.Json.Serialization;
-using LibraryAPI.Infrastructure;
-using Newtonsoft.Json;
-using Microsoft.OpenApi.Models;
 using Exceptions.Extensions;
 using LibraryAPI.API.Extensions;
 using LibraryAPI.Application;
+using LibraryAPI.Infrastructure;
+using LibraryAPI.Persistence;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json;
+using System.Text;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
