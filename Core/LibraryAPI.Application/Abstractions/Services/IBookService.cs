@@ -17,5 +17,9 @@ namespace LibraryAPI.Application.Abstractions.Services
         Task<bool> UpdateBookAsync(string id, string degistirilecek_Veri);
 
         Task<bool> DeleteBookAsync(string id);
+
+
+
+        public Task<Book> Deneme(Guid id);
     }
 }

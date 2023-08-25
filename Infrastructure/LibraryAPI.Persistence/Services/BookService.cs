@@ -43,6 +43,13 @@ namespace LibraryAPI.Persistence.Services
             return books;
         }
 
+        public async Task<Book> Deneme(Guid id)
+        {
+            Book book = await _bookReadRepository.GetAsync(b => b.Id == id,
+                include: b => b.Include(b => b.Librarys).Include(b => b.Authors));
+            return book;
+        }
+
 
         public async Task<Book> CreateBookAsync(Book_Create_VM bookCreateVm)
         {

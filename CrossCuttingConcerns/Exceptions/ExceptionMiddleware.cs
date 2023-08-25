@@ -1,8 +1,8 @@
-﻿using FluentValidation;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using System.Net.Mime;
+using Exceptions.Types;
 
 namespace Exceptions
 {

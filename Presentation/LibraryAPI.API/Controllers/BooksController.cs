@@ -33,7 +33,8 @@ namespace LibraryAPI.API.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetBookById([FromRoute]string id)
         {
-            var result =await _bookService.GetBookByIdAsync(id);
+            //var result =await _bookService.GetBookByIdAsync(id);
+            var result = await _bookService.Deneme(Guid.Parse(id));
             return Ok(result);
         }
         [Authorize(AuthenticationSchemes = "Admin")]
