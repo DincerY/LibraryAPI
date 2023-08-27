@@ -6,9 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 using LibraryAPI.Application.Features.Books.Dtos;
 
-namespace LibraryAPI.Application.Features.Books.Commands.Create;
+namespace LibraryAPI.Application.Features.Books.Commands.Delete;
 
-public class CreatedBookResponse : IBookCommandResponse
+public class DeletedBookResponse : IBookCommandResponse
 {
     public string PageNumber { get; set; }
     public string Title { get; set; }

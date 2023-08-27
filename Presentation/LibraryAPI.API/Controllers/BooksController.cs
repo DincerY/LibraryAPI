@@ -1,6 +1,8 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using LibraryAPI.Application.Abstractions.Services;
+using LibraryAPI.Application.Features.Books;
 using LibraryAPI.Application.Features.Books.Commands.Create;
+using LibraryAPI.Application.Features.Books.Commands.Delete;
 using LibraryAPI.Application.ViewModels.Books;
 using LibraryAPI.Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
@@ -55,8 +57,9 @@ namespace LibraryAPI.API.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteBook([FromRoute]string id)
         {
-            var result = await _bookService.DeleteBookAsync(id);
-            return Ok(result);
+            DeleteBookCommand command = new() { Id = Guid.Parse(id) };
+            DeletedBookResponse response = await MediatoR.Send(command);
+            return Ok(response);
         }
     }
 }

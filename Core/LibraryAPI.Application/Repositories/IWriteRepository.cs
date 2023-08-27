@@ -7,14 +7,14 @@ using LibraryAPI.Domain.Entities.Common;
 
 namespace LibraryAPI.Application.Repositories
 {
-    public interface IWriteRepository<T> : IRepository<T> where T : BaseEntity
+    public interface IWriteRepository<TEntity> : IRepository<TEntity> where TEntity : BaseEntity
     {
-        Task<T> AddAsync(T entity);
-        Task<bool> AddRangeAsync(List<T> datas);
-        bool Remove(T model);
-        bool RemoveRange(List<T> datas);
+        Task<TEntity> AddAsync(TEntity entity);
+        Task<bool> AddRangeAsync(List<TEntity> datas);
+        Task<TEntity> Remove(TEntity entity);
+        bool RemoveRange(List<TEntity> datas);
         Task<bool> RemoveByIdAsync(string id);
-        bool Update(T model);
+        bool Update(TEntity model);
         Task<int> SaveAsync();
     }
 }

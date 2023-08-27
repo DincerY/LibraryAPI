@@ -1,4 +1,6 @@
 ﻿using LibraryAPI.Application.Abstractions.Services;
+using LibraryAPI.Application.Features.Books;
+using LibraryAPI.Application.Features.Books.Dtos;
 using LibraryAPI.Application.Repositories.Book;
 using LibraryAPI.Application.ViewModels.Books;
 using LibraryAPI.Domain.Entities;
@@ -43,6 +45,11 @@ namespace LibraryAPI.Persistence.Services
             return books;
         }
 
+        public Task<bool> DeleteBookAsync(string id)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<Book> Deneme(Guid id)
         {
             Book book = await _bookReadRepository.GetAsync(b => b.Id == id,
@@ -76,14 +83,16 @@ namespace LibraryAPI.Persistence.Services
             return result;
         }
 
-        public async Task<bool> DeleteBookAsync(string id)
-        {
-            Book book =await _bookReadRepository.GetByIdAsync(id);
-            var result = _bookWriteRepository.Remove(book);
-            await _bookWriteRepository.SaveAsync();
-            return result;
+
+
+        //public async Task<bool> DeleteBookAsync(string id)
+        //{
+        //    Book book =await _bookReadRepository.GetByIdAsync(id);
+        //    var result = _bookWriteRepository.Remove(book);
+        //    await _bookWriteRepository.SaveAsync();
+        //    return result;
             
-        }
+        //}
     }
 }
 //Her ne kadar guid olsada id arka planda üretilecektir
