@@ -49,9 +49,15 @@ namespace LibraryAPI.Persistence.Repositories
             return await Table.FirstOrDefaultAsync(method);
         }
 
-        public async Task<TEntity> GetByIdAsync(string id)
+        public async Task<TEntity> GetByIdAsync(string id,
+            Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>>? include = null)
         {
-            return await Table.FirstOrDefaultAsync(data => data.Id == Guid.Parse(id));
+            IQueryable<TEntity> queryable = Query();
+            if (include != null)
+            {
+                queryable = include(queryable);
+            }
+            return await queryable.FirstOrDefaultAsync(data => data.Id == Guid.Parse(id));
         }
 
         public IQueryable<TEntity> Query() => _context.Set<TEntity>();

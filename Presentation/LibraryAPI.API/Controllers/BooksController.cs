@@ -3,6 +3,8 @@ using LibraryAPI.Application.Abstractions.Services;
 using LibraryAPI.Application.Features.Books;
 using LibraryAPI.Application.Features.Books.Commands.Create;
 using LibraryAPI.Application.Features.Books.Commands.Delete;
+using LibraryAPI.Application.Features.Books.Commands.Update;
+using LibraryAPI.Application.Features.Books.Queries.GetAll;
 using LibraryAPI.Application.ViewModels.Books;
 using LibraryAPI.Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
@@ -28,8 +30,9 @@ namespace LibraryAPI.API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllBooks()
         {
-            List<Book> result =await _bookService.GetAllBooksAsync();
-            return Ok(result);
+            GetAllBookQuery query = new();
+            List<GetAllBookResponse> allBooks =await MediatoR.Send(query);
+            return Ok(allBooks);
         }
         [Authorize(AuthenticationSchemes = "Admin")]
         [HttpGet("{id}")]
@@ -48,10 +51,11 @@ namespace LibraryAPI.API.Controllers
         }
         [Authorize(AuthenticationSchemes = "Admin")]
         [HttpPut]
-        public async Task<IActionResult> UpdateBook([FromQuery]string id,string a)
+        public async Task<IActionResult> UpdateBook([FromQuery]Guid id,string description)
         {
-            var result =await _bookService.UpdateBookAsync(id, a);
-            return Ok(result);
+            UpdateBookCommand command = new() { Description = description, Id = id };
+            UpdatedBookResponse response = await MediatoR.Send(command);
+            return Ok(response);
         }
         [Authorize(AuthenticationSchemes = "Admin")]
         [HttpDelete("{id}")]

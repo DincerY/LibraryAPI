@@ -74,13 +74,13 @@ namespace LibraryAPI.Persistence.Services
              return result;
         }
 
-        public async Task<bool> UpdateBookAsync(string id,string degistirilecek_Veri)
+        public async Task<Book> UpdateBookAsync(string id,string description)
         {
-            Book book = await _bookReadRepository.GetByIdAsync(id);
-            book.Description = degistirilecek_Veri;
-            var result = _bookWriteRepository.Update(book);
+            Book book = await _bookReadRepository.GetByIdAsync(id,b=>b.Include(b=>b.Authors).Include(b=>b.Librarys));
+            book.Description = description;
+            Book updatedBook = _bookWriteRepository.Update(book);
             await _bookWriteRepository.SaveAsync();
-            return result;
+            return updatedBook;
         }
 
 

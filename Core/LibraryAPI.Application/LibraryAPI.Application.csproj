@@ -23,10 +23,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Features\Books\Commands\Update\" />
     <Folder Include="Features\Books\Constants\" />
+    <Folder Include="Features\Books\Queries\GetById\" />
     <Folder Include="Features\Books\Rules\" />
-    <Folder Include="Features\Books\Queries\" />
   </ItemGroup>
 
 </Project>

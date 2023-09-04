@@ -31,22 +31,7 @@ public class DeleteBookCommand : IRequest<DeletedBookResponse>
 
             Book deletedBook =await _bookWriteRepository.Remove(book);
 
-            DeletedBookResponse response = new()
-            {
-                PageNumber = deletedBook.PageNumber,
-                Title = deletedBook.Title,
-                Description = deletedBook.Description,
-                Libraries = deletedBook?.Librarys.Select(l=>new LibraryDto()
-                {
-                    LibraryAddress = l.Address,
-                    LibraryName = l.Name
-                }).ToArray(),
-                Authors = deletedBook?.Authors.Select(a=>new AuthorDto()
-                {
-                    AuthorSurname = a.Surname,
-                    AuthorName = a.Name,
-                }).ToArray()
-            };
+            DeletedBookResponse response =(DeletedBookResponse)Creator.Run(Creator.ResponseType.Deleted, deletedBook);
             return response;
 
         }

@@ -48,10 +48,17 @@ namespace LibraryAPI.Persistence.Repositories
             return entityEntry.State == EntityState.Deleted;
         }
 
-        public bool Update(TEntity model)
+        public TEntity Update(TEntity model)
         {
             EntityEntry entityEntry = Table.Update(model);
-            return entityEntry.State == EntityState.Modified;
+            if (entityEntry.State == EntityState.Modified)
+            {
+                return model;
+            }
+            else
+            {
+                return null;
+            }
         }
 
         public async Task<int> SaveAsync()

@@ -14,7 +14,7 @@ namespace LibraryAPI.Application.Repositories
         Task<TEntity> Remove(TEntity entity);
         bool RemoveRange(List<TEntity> datas);
         Task<bool> RemoveByIdAsync(string id);
-        bool Update(TEntity model);
+        TEntity Update(TEntity model);
         Task<int> SaveAsync();
     }
 }

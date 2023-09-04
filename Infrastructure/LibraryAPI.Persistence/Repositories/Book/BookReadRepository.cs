@@ -1,7 +1,7 @@
 ﻿using LibraryAPI.Application.Repositories.Book;
-using Microsoft.EntityFrameworkCore;
-using System.Linq.Expressions;
 using LibraryAPI.Persistence.Contexts;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query;
 
 namespace LibraryAPI.Persistence.Repositories.Book
 {
@@ -17,8 +17,8 @@ namespace LibraryAPI.Persistence.Repositories.Book
         {
             //_context.Books.Where(b => b.Authors.Any(a => a.Books.Any(b => b.Id == Guid.Parse(id))));
             return _context.Books.Include(b => b.Authors).Include(b => b.Librarys);
-
-
         }
+
+
     }
 }
