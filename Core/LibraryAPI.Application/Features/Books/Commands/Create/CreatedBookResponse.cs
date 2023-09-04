@@ -8,7 +8,7 @@ using LibraryAPI.Application.Features.Books.Dtos;
 
 namespace LibraryAPI.Application.Features.Books.Commands.Create;
 
-public class CreatedBookResponse : IBookCommandResponse
+public class CreatedBookResponse : IBookResponse
 {
     public string PageNumber { get; set; }
     public string Title { get; set; }

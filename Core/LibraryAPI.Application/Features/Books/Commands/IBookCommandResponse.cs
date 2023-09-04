@@ -2,22 +2,23 @@
 using LibraryAPI.Application.Features.Books.Commands.Delete;
 using LibraryAPI.Application.Features.Books.Commands.Update;
 using LibraryAPI.Application.Features.Books.Dtos;
+using LibraryAPI.Application.Features.Books.Queries.GetById;
 using LibraryAPI.Domain.Entities;
 
 namespace LibraryAPI.Application.Features.Books.Commands;
 
-public interface IBookCommandResponse
+public interface IBookResponse
 {
 }
 
-public interface IBookCommandResponseFactory
+public interface IBookResponseFactory
 {
-    IBookCommandResponse Create(Book book);
+    IBookResponse Create(Book book);
 }
 
-public class CreatedBookResponseFactory : IBookCommandResponseFactory
+public class CreatedBookResponseFactory : IBookResponseFactory
 {
-    public IBookCommandResponse Create(Book createdBook)
+    public IBookResponse Create(Book createdBook)
     {
         CreatedBookResponse response = new()
         {
@@ -40,9 +41,9 @@ public class CreatedBookResponseFactory : IBookCommandResponseFactory
     }
 }
 
-public class DeletedBookResponseFactory : IBookCommandResponseFactory
+public class DeletedBookResponseFactory : IBookResponseFactory
 {
-    public IBookCommandResponse Create(Book deletedBook)
+    public IBookResponse Create(Book deletedBook)
     {
         DeletedBookResponse response = new()
         {
@@ -65,13 +66,41 @@ public class DeletedBookResponseFactory : IBookCommandResponseFactory
     }
 }
 
-public class UpdatedBookResponseFactory : IBookCommandResponseFactory
+public class UpdatedBookResponseFactory : IBookResponseFactory
 {
-    public IBookCommandResponse Create(Book updatedBook)
+    public IBookResponse Create(Book updatedBook)
     {
 
         UpdatedBookResponse response = new()
         {
+            Id = updatedBook.Id,
+            PageNumber = updatedBook.PageNumber,
+            Description = updatedBook.Description,
+            Title = updatedBook.Title,
+            Authors = updatedBook.Authors.Select(a => new AuthorDto()
+            {
+                AuthorSurname = a.Surname,
+                AuthorName = a.Name,
+            }).ToArray(),
+            Libraries = updatedBook.Librarys.Select(l => new LibraryDto()
+            {
+                LibraryAddress = l.Address,
+                LibraryName = l.Name,
+            }).ToArray(),
+            ReadListItems = updatedBook.ReadListItems
+        };
+        return response;
+    }
+}
+
+public class GetByIdBookResponseFactory : IBookResponseFactory
+{
+    public IBookResponse Create(Book updatedBook)
+    {
+
+        GetByIdBookResponse response = new()
+        {
+            Id = updatedBook.Id,
             PageNumber = updatedBook.PageNumber,
             Description = updatedBook.Description,
             Title = updatedBook.Title,
@@ -97,16 +126,18 @@ public class Creator
     {
         Created,
         Deleted,
-        Updated
+        Updated,
+        GetById
     }
 
-    public static IBookCommandResponse Run(ResponseType responseType,Book book)
+    public static IBookResponse Run(ResponseType responseType,Book book)
     {
-        IBookCommandResponseFactory responseFactory = responseType switch
+        IBookResponseFactory responseFactory = responseType switch
         {
             ResponseType.Created => new CreatedBookResponseFactory(),
             ResponseType.Deleted => new DeletedBookResponseFactory(),
             ResponseType.Updated => new UpdatedBookResponseFactory(),
+            ResponseType.GetById => new GetByIdBookResponseFactory()
 
         };
         

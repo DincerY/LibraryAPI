@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Exceptions.Types;
 using LibraryAPI.Application.Abstractions.Services;
 using LibraryAPI.Application.DTOs.Library;
 using LibraryAPI.Application.Repositories.Book;
@@ -50,19 +51,16 @@ namespace LibraryAPI.Persistence.Services
 
             return libraries;
         }
-        public async Task<CreateLibraryResponse> CreateLibrary(Library_Create_VM libraryCreateVm)
+        public async Task<Library> CreateLibrary(Library_Create_VM libraryCreateVm)
         {
-            CreateLibraryResponse response = new();
-            if (libraryCreateVm.FormSelectBooks == null)
+            if (libraryCreateVm.LibraryBooksId == null)
             {
-                response.Succeeded = false;
-                response.Message = "Kitap girişi yapınız";
-                return response;
+                throw new ValidationException("Lütfen kitap girişi yapınız");
             }
             List<Book> books = new();
-            foreach (var booksIds in libraryCreateVm.FormSelectBooks)
+            foreach (var booksId in libraryCreateVm.LibraryBooksId)
             {
-                var temporaryData = await _bookReadRepository.GetByIdAsync(booksIds);
+                var temporaryData = await _bookReadRepository.GetByIdAsync(booksId);
                 books.Add(temporaryData);
             }
             var result =await _libraryWriteRepository.AddAsync(new()

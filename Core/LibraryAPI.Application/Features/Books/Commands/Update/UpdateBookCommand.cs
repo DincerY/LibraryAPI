@@ -13,12 +13,10 @@ namespace LibraryAPI.Application.Features.Books.Commands.Update
         public class UpdateBookCommandHandler : IRequestHandler<UpdateBookCommand,UpdatedBookResponse>
         {
             private readonly IBookService _bookService;
-            private readonly IMapper _mapper;
 
             public UpdateBookCommandHandler(IBookService bookService, IMapper mapper)
             {
                 _bookService = bookService;
-                _mapper = mapper;
             }
 
             public async Task<UpdatedBookResponse> Handle(UpdateBookCommand request, CancellationToken cancellationToken)

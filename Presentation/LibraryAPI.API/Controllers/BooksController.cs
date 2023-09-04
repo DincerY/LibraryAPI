@@ -5,6 +5,7 @@ using LibraryAPI.Application.Features.Books.Commands.Create;
 using LibraryAPI.Application.Features.Books.Commands.Delete;
 using LibraryAPI.Application.Features.Books.Commands.Update;
 using LibraryAPI.Application.Features.Books.Queries.GetAll;
+using LibraryAPI.Application.Features.Books.Queries.GetById;
 using LibraryAPI.Application.ViewModels.Books;
 using LibraryAPI.Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
@@ -19,14 +20,7 @@ namespace LibraryAPI.API.Controllers
 
     public class BooksController : BaseController
     {
-        readonly IBookService _bookService;
-         readonly IDistributedCache _distributedCache;
 
-        public BooksController(IBookService bookService, IDistributedCache distributedCache)
-        {
-            _bookService = bookService;
-            _distributedCache = distributedCache;
-        }
         [HttpGet]
         public async Task<IActionResult> GetAllBooks()
         {
@@ -38,9 +32,9 @@ namespace LibraryAPI.API.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetBookById([FromRoute]string id)
         {
-            //var result =await _bookService.GetBookByIdAsync(id);
-            var result = await _bookService.Deneme(Guid.Parse(id));
-            return Ok(result);
+            GetByIdBookQuery query = new() { Id = Guid.Parse(id) };
+            GetByIdBookResponse response = await MediatoR.Send(query);
+            return Ok(response);
         }
         [Authorize(AuthenticationSchemes = "Admin")]
         [HttpPost]

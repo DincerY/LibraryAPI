@@ -6,13 +6,15 @@ using System.Threading.Tasks;
 using LibraryAPI.Application.Features.Books;
 using LibraryAPI.Application.ViewModels.Books;
 using LibraryAPI.Domain.Entities;
+using Microsoft.EntityFrameworkCore.Query;
 
 namespace LibraryAPI.Application.Abstractions.Services
 {
     public interface IBookService
     {
         Task<List<Book>> GetAllBooksAsync();
-        Task<Book> GetBookByIdAsync(string id);
+        Task<Book> GetBookByIdAsync(string id,
+            Func<IQueryable<Book>, IIncludableQueryable<Book, object>>? include = null);
         Task<List<Book>> GetBooksByIdsAsync(string[] ids);
         Task<Book> CreateBookAsync(Book_Create_VM bookCreateVm);
         Task<Book> UpdateBookAsync(string id, string description);

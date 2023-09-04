@@ -10,6 +10,6 @@ namespace LibraryAPI.Application.ViewModels.Libraries
     {
         public string Address { get; set; }
         public string LibraryName { get; set; }
-        public string[] FormSelectBooks { get; set; }
+        public string[] LibraryBooksId { get; set; }
     }
 }

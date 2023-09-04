@@ -8,7 +8,7 @@ using LibraryAPI.Application.Features.Books.Dtos;
 
 namespace LibraryAPI.Application.Features.Books.Commands.Delete;
 
-public class DeletedBookResponse : IBookCommandResponse
+public class DeletedBookResponse : IBookResponse
 {
     public string PageNumber { get; set; }
     public string Title { get; set; }

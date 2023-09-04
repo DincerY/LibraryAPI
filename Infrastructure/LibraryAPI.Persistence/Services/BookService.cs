@@ -5,6 +5,7 @@ using LibraryAPI.Application.Repositories.Book;
 using LibraryAPI.Application.ViewModels.Books;
 using LibraryAPI.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query;
 
 namespace LibraryAPI.Persistence.Services
 {
@@ -28,9 +29,10 @@ namespace LibraryAPI.Persistence.Services
             return books;
         }
 
-        public async Task<Book> GetBookByIdAsync(string id)
+        public async Task<Book> GetBookByIdAsync(string id,
+            Func<IQueryable<Book>, IIncludableQueryable<Book, object>>? include = null)
         {
-            Book book =await _bookReadRepository.GetByIdAsync(id);
+            Book book =await _bookReadRepository.GetByIdAsync(id,include);
             return book;
         }
 

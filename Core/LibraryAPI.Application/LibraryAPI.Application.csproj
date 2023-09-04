@@ -24,8 +24,10 @@
 
   <ItemGroup>
     <Folder Include="Features\Books\Constants\" />
-    <Folder Include="Features\Books\Queries\GetById\" />
     <Folder Include="Features\Books\Rules\" />
+    <Folder Include="Features\Libraries\Dtos\" />
+    <Folder Include="Features\Libraries\Profiles\" />
+    <Folder Include="Features\Libraries\Queries\" />
   </ItemGroup>
 
 </Project>

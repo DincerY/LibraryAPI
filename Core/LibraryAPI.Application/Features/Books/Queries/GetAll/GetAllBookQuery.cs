@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using LibraryAPI.Application.Abstractions.Services;
+using LibraryAPI.Application.Features.Books.Dtos;
 using LibraryAPI.Domain.Entities;
 using MediatR;
 
@@ -15,11 +11,10 @@ namespace LibraryAPI.Application.Features.Books.Queries.GetAll
         public class GetAllBookQueryHandler : IRequestHandler<GetAllBookQuery,List<GetAllBookResponse>>
         {
             private readonly IBookService _bookService;
-            private readonly IMapper _mapper;
-            public GetAllBookQueryHandler(IBookService bookService, IMapper mapper)
+
+            public GetAllBookQueryHandler(IBookService bookService)
             {
                 _bookService = bookService;
-                _mapper = mapper;
             }
 
             public async Task<List<GetAllBookResponse>> Handle(GetAllBookQuery request, CancellationToken cancellationToken)
@@ -28,7 +23,24 @@ namespace LibraryAPI.Application.Features.Books.Queries.GetAll
                 List<GetAllBookResponse> allBooks = new();
                 foreach (Book book in books)
                 {
-                    GetAllBookResponse response = _mapper.Map<GetAllBookResponse>(book);
+                    GetAllBookResponse response = new()
+                    {
+                        Id = book.Id,
+                        PageNumber = book.PageNumber,
+                        Description = book.Description,
+                        Title = book.Title,
+                        Authors = book.Authors.Select(a => new AuthorDto()
+                        {
+                            AuthorSurname = a.Surname,
+                            AuthorName = a.Name,
+                        }).ToArray(),
+                        Libraries = book.Librarys.Select(l => new LibraryDto()
+                        {
+                            LibraryAddress = l.Address,
+                            LibraryName = l.Name,
+                        }).ToArray(),
+                        ReadListItems = book.ReadListItems
+                    };
                     allBooks.Add(response);
                 }
                 return allBooks;

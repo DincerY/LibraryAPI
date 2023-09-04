@@ -13,6 +13,6 @@ namespace LibraryAPI.Application.Abstractions.Services
     {
         Task<List<AllLibrary>> GetAllLibraries();
         Task<List<Library>> GetLibrariesByIds(string[] libraryIds);
-        Task<CreateLibraryResponse> CreateLibrary(Library_Create_VM libraryCreateVm);
+        Task<Library> CreateLibrary(Library_Create_VM libraryCreateVm);
     }
 }
