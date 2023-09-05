@@ -35,7 +35,15 @@ namespace Exceptions
                 return CreateValidationException(context, exception);
             }
 
-            return CreateInternalException(context, exception);
+            else if (exception.GetType() == typeof(BusinessException))
+            {
+                return CreateBusinessException(context, exception);
+            }
+            else
+            {
+                return CreateInternalException(context, exception);
+            }
+
 
         }
 
@@ -53,6 +61,12 @@ namespace Exceptions
                 Instance = "",
                 Errors = errors
             }.ToString());
+        }
+
+        private Task CreateBusinessException(HttpContext context, Exception exception)
+        {
+            context.Response.StatusCode = Convert.ToInt32(HttpStatusCode.BadRequest);
+            return context.Response.WriteAsync(new HttpProblemDetails.BusinessProblemDetails(exception.Message).ToString());
         }
 
         private Task CreateInternalException(HttpContext context, Exception exception)

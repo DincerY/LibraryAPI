@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using FluentValidation;
+using LibraryAPI.Application.Features.Authors.Rules;
 using LibraryAPI.Application.Pipelines.Validation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
@@ -21,6 +22,8 @@ public static class ApplicationServiceRegistration
 
         services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
         services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestValidationBehavior<,>));
+
+        services.AddScoped<AuthorBusinessRule>();
 
         return services;
     }

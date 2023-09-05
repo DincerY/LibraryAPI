@@ -23,7 +23,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Features\Authors\Commands\" />
     <Folder Include="Features\Books\Constants\" />
     <Folder Include="Features\Books\Rules\" />
     <Folder Include="Features\Libraries\Dtos\" />

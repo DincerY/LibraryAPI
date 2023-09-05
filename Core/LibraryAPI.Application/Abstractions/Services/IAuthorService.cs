@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using LibraryAPI.Application.DTOs.Author;
+using LibraryAPI.Application.Features.Authors.Commands.Create;
 using LibraryAPI.Domain.Entities;
 
 namespace LibraryAPI.Application.Abstractions.Services
@@ -12,5 +13,7 @@ namespace LibraryAPI.Application.Abstractions.Services
     {
         Task<List<Author>> GetAllAuthors();
         public Task<List<Author>> GetAuthorsByIds(string[] AuthorIds);
+
+        public Task<Author> CreateAuthor(CreateAuthorCommand command);
     }
 }

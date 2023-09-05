@@ -1,4 +1,5 @@
 ﻿using LibraryAPI.Application.Abstractions.Services;
+using LibraryAPI.Application.Features.Authors.Commands.Create;
 using LibraryAPI.Application.Features.Authors.Queries.GetAll;
 using LibraryAPI.Persistence.Services;
 using Microsoft.AspNetCore.Http;
@@ -20,9 +21,11 @@ namespace LibraryAPI.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create()
+        public async Task<IActionResult> Create([FromBody] CreateAuthorCommand command)
         {
-            return Created("", "");
+
+            CreatedAuthorResponse response = await MediatoR.Send(command);
+            return Created("", response);
         }
     }
 }
