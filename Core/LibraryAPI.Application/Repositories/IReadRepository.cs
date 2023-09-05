@@ -21,7 +21,7 @@ namespace LibraryAPI.Application.Repositories
                 
 
 
-        IQueryable<TEntity> GetAll();
+        IQueryable<TEntity> GetAll(Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>>? include = null);
         IQueryable<TEntity> GetWhere(Expression<Func<TEntity, bool>> method);
         Task<TEntity> GetSingleAsync(Expression<Func<TEntity, bool>> method);
         Task<TEntity> GetByIdAsync(string id,

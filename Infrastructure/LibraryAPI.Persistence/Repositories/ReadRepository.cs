@@ -33,9 +33,14 @@ namespace LibraryAPI.Persistence.Repositories
 
         }
 
-        public IQueryable<TEntity> GetAll()
+        public IQueryable<TEntity> GetAll(Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>>? include = null)
         {
-            return Table.AsQueryable();
+            IQueryable<TEntity> queryable = Query();
+            if (include != null)
+            {
+                queryable = include(queryable);
+            }
+            return queryable;
         }
 
 

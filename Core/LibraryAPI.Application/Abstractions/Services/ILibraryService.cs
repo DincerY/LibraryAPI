@@ -11,7 +11,7 @@ namespace LibraryAPI.Application.Abstractions.Services
 {
     public interface ILibraryService
     {
-        Task<List<AllLibrary>> GetAllLibraries();
+        Task<List<Library>> GetAllLibraries();
         Task<List<Library>> GetLibrariesByIds(string[] libraryIds);
         Task<Library> CreateLibrary(Library_Create_VM libraryCreateVm);
     }

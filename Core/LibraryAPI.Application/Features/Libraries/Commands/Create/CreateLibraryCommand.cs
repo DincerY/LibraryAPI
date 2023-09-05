@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using LibraryAPI.Application.Abstractions.Services;
 using LibraryAPI.Application.ViewModels.Libraries;
+using LibraryAPI.Domain.Entities;
 using MediatR;
 
 namespace LibraryAPI.Application.Features.Libraries.Commands.Create
@@ -27,10 +28,12 @@ namespace LibraryAPI.Application.Features.Libraries.Commands.Create
                 _mapper = mapper;
             }
 
-            public Task<CreatedLibraryResponse> Handle(CreateLibraryCommand request, CancellationToken cancellationToken)
+            public async Task<CreatedLibraryResponse> Handle(CreateLibraryCommand request, CancellationToken cancellationToken)
             {
                 Library_Create_VM mappedLibraryCreateVm = _mapper.Map<Library_Create_VM>(request);
-                 _libraryService.CreateLibrary(mappedLibraryCreateVm);
+                Library addedLibrary =await _libraryService.CreateLibrary(mappedLibraryCreateVm);
+                CreatedLibraryResponse response = _mapper.Map<CreatedLibraryResponse>(addedLibrary);
+                return response;
             }
         }
     }

@@ -28,16 +28,10 @@ namespace LibraryAPI.Persistence.Services
             _bookReadRepository = bookReadRepository;
         }
 
-        public async Task<List<AllLibrary>> GetAllLibraries()
+        public async Task<List<Library>> GetAllLibraries()
         {
-            var result = await _libraryReadRepository.GetAll().Select(l => new AllLibrary()
-            {
-                Id = l.Id.ToString(),
-                Address = l.Address,
-                Name = l.Name,
-                Books = l.Books,
-            }).ToListAsync();
-            return result;
+            List<Library> libraries = await _libraryReadRepository.GetAll(l=>l.Include(l=>l.Books).ThenInclude(b=>b.Authors).Include(l=>l.Books).ThenInclude(b=>b.Librarys)).ToListAsync();
+            return libraries;
         }
 
         public async Task<List<Library>> GetLibrariesByIds(string[] libraryIds)
@@ -60,28 +54,18 @@ namespace LibraryAPI.Persistence.Services
             List<Book> books = new();
             foreach (var booksId in libraryCreateVm.LibraryBooksId)
             {
-                var temporaryData = await _bookReadRepository.GetByIdAsync(booksId);
-                books.Add(temporaryData);
+                Book libraryBook = await _bookReadRepository.GetByIdAsync(booksId);
+                books.Add(libraryBook);
             }
-            var result =await _libraryWriteRepository.AddAsync(new()
+            Library addedLibrary =await _libraryWriteRepository.AddAsync(new()
             {
                 Address = libraryCreateVm.Address,
                 Name = libraryCreateVm.LibraryName,
-                //Books = books
+                Books = books
             });
-            int a = await _libraryWriteRepository.SaveAsync();
-            //response.Succeeded = result;
-            //if (result)
-            //{
-            //    response.Message = "Ekleme işlemi başarılı";
-            //    return response;
-            //}
-            //else
-            //{
-            //    response.Message = "Eklenirken bi hata meydana geldi";
-            //    return response;
-            //}
-            return null;
+            await _libraryWriteRepository.SaveAsync();
+
+            return addedLibrary;
 
         }
     }

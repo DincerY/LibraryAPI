@@ -10,6 +10,7 @@ using LibraryAPI.Application.Models;
 using LibraryAPI.Application.Repositories.ReadList;
 using LibraryAPI.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query;
 
 namespace LibraryAPI.Persistence.Services
 {
@@ -21,42 +22,32 @@ namespace LibraryAPI.Persistence.Services
             _readListReadRepository = readListReadRepository;
         }
 
-        public async Task<List<ReadList>> GetAsync()
-        {
-            List<ReadList> readLists = await _readListReadRepository
-                .GetAll()
-                .Include(r => r.ReadListItems)
-                .ThenInclude(rli=>rli.Book).ThenInclude(b=>b.Authors)
-                .Include(r => r.ReadListItems)
-                .ThenInclude(rli => rli.Book).ThenInclude(b => b.Librarys)
-                .Include(r=>r.User)
-                .ToListAsync();
 
-            return readLists;
+        public async Task<List<ReadList>> GetAllReadListAsync()
+        {
+           List<ReadList> readLists =await _readListReadRepository.GetAll(r=>r.Include(r=>r.ReadListItems).ThenInclude(rli=>rli.Book).ThenInclude(b=>b.Authors).Include(r=>r.ReadListItems).ThenInclude(rli=>rli.Book).ThenInclude(b=>b.Librarys).Include(r=>r.User)).ToListAsync();
+           return readLists;
         }
 
-        public async Task<ReadList> GetUsersReadListAsync(string id)
+        public async Task<ReadList> GetUserReadListAsync(string id)
         {
+            ReadList readList = await _readListReadRepository.GetAsync(r => r.UserId == id,
+                r => r.Include(r => r.ReadListItems)
+                    .ThenInclude(rli => rli.Book)
+                    .ThenInclude(b => b.Librarys)
 
-            List<ReadList> readLists = await _readListReadRepository
-                .GetAll()
-                .Include(r => r.ReadListItems)
-                .ThenInclude(rli=>rli.Book)
-                .ThenInclude(b=>b.Librarys)
-
-
-                .Include(r => r.ReadListItems)
-                .ThenInclude(rli => rli.Book)
-                .ThenInclude(b => b.Authors)
-
-                .Include(rl=>rl.User)
-
-                .ToListAsync();
-
-
-            ReadList? readList = readLists.Find(x => x.UserId == id);
+                    .Include(r => r.ReadListItems)
+                    .ThenInclude(rli => rli.Book)
+                    .ThenInclude(b => b.Authors)
+                    .Include(r => r.User)
+            );
+            
             return readList;
         }
+
+     
+
+            
 
       
 

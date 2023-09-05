@@ -26,8 +26,8 @@
     <Folder Include="Features\Books\Constants\" />
     <Folder Include="Features\Books\Rules\" />
     <Folder Include="Features\Libraries\Dtos\" />
-    <Folder Include="Features\Libraries\Profiles\" />
-    <Folder Include="Features\Libraries\Queries\" />
+    <Folder Include="Features\ReadLists\Commands\" />
+    <Folder Include="Features\ReadLists\Profiles\" />
   </ItemGroup>
 
 </Project>
