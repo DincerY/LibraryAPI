@@ -10,7 +10,7 @@ namespace LibraryAPI.Application.Abstractions.Services
 {
     public interface IAuthorService
     {
-        Task<List<AllAuthor>> GetAllAuthors();
+        Task<List<Author>> GetAllAuthors();
         public Task<List<Author>> GetAuthorsByIds(string[] AuthorIds);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using LibraryAPI.Application.Abstractions.Services;
+using LibraryAPI.Application.Features.Authors.Queries.GetAll;
 using LibraryAPI.Persistence.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -7,20 +8,21 @@ namespace LibraryAPI.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AuthorsController : ControllerBase
+    public class AuthorsController : BaseController
     { 
-        readonly IAuthorService _authorService;
-        public AuthorsController(IAuthorService authorService)
-        {
-            _authorService = authorService;
-        }
-
 
         [HttpGet]
-        public async Task<IActionResult> GetAllAuthors()
+        public async Task<IActionResult> Get()
         {
-            var result =await _authorService.GetAllAuthors();
-            return Ok(result);
+            GetAllAuthorQuery query = new();
+            GetAllAuthorResponse response = await MediatoR.Send(query);
+            return Ok(response);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create()
+        {
+            return Created("", "");
         }
     }
 }

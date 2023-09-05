@@ -12,12 +12,6 @@ namespace LibraryAPI.API.Controllers
     [ApiController]
     public class ReadListsController : BaseController
     {
-        private readonly IReadListService _readListService;
-        public ReadListsController(IReadListService readListService)
-        {
-            _readListService = readListService;
-        }
-
         [HttpGet]
         public async Task<IActionResult> Get()
         {

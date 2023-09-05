@@ -12,13 +12,6 @@ namespace LibraryAPI.API.Controllers
     [ApiController]
     public class LibrariesController : BaseController
     {
-        readonly ILibraryService _libraryService;
-
-        public LibrariesController(ILibraryService libraryService)
-        {
-            _libraryService = libraryService;
-        }
-
         [HttpGet]
         public async Task<IActionResult> GetAllLibrary()
         {

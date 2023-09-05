@@ -14,20 +14,14 @@ namespace LibraryAPI.Persistence.Services
     public class AuthorService : IAuthorService
     {
         readonly IAuthorReadRepository _authorReadRepository;
-
         public AuthorService(IAuthorReadRepository authorReadRepository)
         {
             _authorReadRepository = authorReadRepository;
         }
 
-        public async Task<List<AllAuthor>> GetAllAuthors()
+        public async Task<List<Author>> GetAllAuthors()
         {
-            var result = await _authorReadRepository.GetAll().Select(a=> new AllAuthor()
-            {
-                Id = a.Id.ToString(),
-                Name = a.Name,
-                Surname = a.Surname,
-            }).ToListAsync();
+            var result = await _authorReadRepository.GetAll().ToListAsync();
             return result;
         }
 
