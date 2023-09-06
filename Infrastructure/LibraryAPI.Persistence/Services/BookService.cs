@@ -1,6 +1,4 @@
 ﻿using LibraryAPI.Application.Abstractions.Services;
-using LibraryAPI.Application.Features.Books;
-using LibraryAPI.Application.Features.Books.Dtos;
 using LibraryAPI.Application.Repositories.Book;
 using LibraryAPI.Application.ViewModels.Books;
 using LibraryAPI.Domain.Entities;
@@ -63,7 +61,7 @@ namespace LibraryAPI.Persistence.Services
         public async Task<Book> CreateBookAsync(Book_Create_VM bookCreateVm)
         {
             List<Library>? libraries = await _libraryService.GetLibrariesByIds(bookCreateVm.LibraryId);
-            List<Author>? authors = await _authorService.GetAuthorsByIds(bookCreateVm.AuthorId);
+            List<Author>? authors = await _authorService.GetAuthorsByIdsAsync(bookCreateVm.AuthorId);
             var result = await _bookWriteRepository.AddAsync(new()
             {
                 Authors = authors,

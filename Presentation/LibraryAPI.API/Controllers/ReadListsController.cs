@@ -1,10 +1,11 @@
-﻿using AutoMapper;
-using LibraryAPI.Application.Abstractions.Services;
-using LibraryAPI.Application.DTOs.ReadList;
+﻿using LibraryAPI.Application.Abstractions.Services;
 using LibraryAPI.Application.Features.ReadLists.Queries.GetAll;
 using LibraryAPI.Application.Features.ReadLists.Queries.GetById;
 using LibraryAPI.Domain.Entities;
+using MassTransit;
 using Microsoft.AspNetCore.Mvc;
+using Shared.Events;
+
 
 namespace LibraryAPI.API.Controllers
 {
@@ -12,11 +13,19 @@ namespace LibraryAPI.API.Controllers
     [ApiController]
     public class ReadListsController : BaseController
     {
+        private readonly IReadListService _readListService;
+        private readonly IPublishEndpoint _publishEndpoint;
+        public ReadListsController(IReadListService readListService, IPublishEndpoint publishEndpoint)
+        {
+            _readListService = readListService;
+            _publishEndpoint = publishEndpoint;
+        }
+
         [HttpGet]
         public async Task<IActionResult> Get()
         {
             GetAllReadListQuery query = new();
-            GetAllReadListReponse response =await MediatoR.Send(query);
+            GetAllReadListReponse response = await MediatoR.Send(query);
             return Ok(response);
         }
 
@@ -28,5 +37,18 @@ namespace LibraryAPI.API.Controllers
             return Ok(response);
         }
 
+        [HttpPost]
+        public async Task<IActionResult> FinishReadList(string userId)
+        {
+            ReadList readList = await _readListService.GetUserReadListAsync(userId);
+            ReadListFinishedEvent readListFinishedEvent = new()
+            {
+                UserId = Guid.Parse(readList.UserId),
+                ProductId = readList.ReadListItems.Select(rli=>rli.BookId).ToArray()
+            };
+
+            await _publishEndpoint.Publish(readListFinishedEvent);
+            return Ok();
+        }
     }
 }

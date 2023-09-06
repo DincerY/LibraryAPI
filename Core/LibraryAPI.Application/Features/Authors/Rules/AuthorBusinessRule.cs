@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Exceptions.Types;
+﻿using Exceptions.Types;
 using LibraryAPI.Application.Abstractions.Services;
 using LibraryAPI.Domain.Entities;
 
@@ -12,10 +7,12 @@ namespace LibraryAPI.Application.Features.Authors.Rules;
 public class AuthorBusinessRule : BaseBusinessRules
 {
     private readonly IBookService _bookService;
+    private readonly IAuthorService _authorService;
 
-    public AuthorBusinessRule(IBookService bookService)
+    public AuthorBusinessRule(IBookService bookService, IAuthorService authorService)
     {
         _bookService = bookService;
+        _authorService = authorService;
     }
 
     public async Task BookIdsNotAvailableWhenAuthorInserted(string[] bookIds)
@@ -25,8 +22,24 @@ public class AuthorBusinessRule : BaseBusinessRules
             Book book = await _bookService.GetBookByIdAsync(bookId);
             if (book == null)
             {
-                throw new BusinessException("Bu id de bi kitap mevcut değil");
+                throw new BusinessException("Bazı idlere ait kitap bulunamamaktadır");
             }
+        }
+    }
+    public async Task AuthorAlreadHasThisBook(string authorId,string[] bookIds)
+    {
+        foreach (var bookId in bookIds)
+        {
+            Author author = await _authorService.GetAuthorsByIdAsync(authorId);
+            foreach (var id in bookIds)
+            {
+                if (author.Books.All(b => b.Id != Guid.Parse(id)))
+                {
+                    throw new BusinessException("Bazı idlere ait kitap bulunamamaktadır");
+                }
+
+            }
+
         }
     }
 }

@@ -13,6 +13,6 @@ namespace LibraryAPI.Application.Abstractions.Services
     public interface IReadListService
     {
         public Task<List<ReadList>> GetAllReadListAsync();
-        public Task<ReadList> GetUserReadListAsync(string id);
+        public Task<ReadList> GetUserReadListAsync(string userId);
     }
 }

@@ -8,6 +8,7 @@ using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using System.Text;
 using System.Text.Json.Serialization;
+using MassTransit;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +17,13 @@ builder.Services.AddPersistenceServices();
 builder.Services.AddInfrastructureServices();
 builder.Services.AddApplicationServices();
 
+builder.Services.AddMassTransit(configurator =>
+{
+    configurator.UsingRabbitMq((context, _configurator) =>
+    {
+        _configurator.Host("amqps://gyakepie:U4yXBYYju9xZizew1LWjY_AAjeFKnax2@stingray.rmq.cloudamqp.com/gyakepie");
+    });
+});
 
 builder.Services.AddStackExchangeRedisCache(option =>
 {

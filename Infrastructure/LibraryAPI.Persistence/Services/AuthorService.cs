@@ -29,10 +29,10 @@ namespace LibraryAPI.Persistence.Services
             return result;
         }
 
-        public async Task<List<Author>> GetAuthorsByIds(string[] AuthorIds)
+        public async Task<List<Author>> GetAuthorsByIdsAsync(string[] authorIds)
         {
             List<Author> authors = new();
-            foreach (var authorId in AuthorIds)
+            foreach (var authorId in authorIds)
             {
                 var deneme = await _authorReadRepository.GetByIdAsync(authorId);
                 authors.Add(deneme);
@@ -51,6 +51,12 @@ namespace LibraryAPI.Persistence.Services
             };
              Author addedAuthor = await _authorWriteRepository.AddAsync(author);
              return addedAuthor;
+        }
+
+        public async Task<Author> GetAuthorsByIdAsync(string authorId)
+        {
+            Author author =await _authorReadRepository.GetAsync(a => a.Id == Guid.Parse(authorId),a=>a.Include(a=>a.Books));
+            return author;
         }
     }
 }

@@ -29,6 +29,7 @@ public class GetAllAuthorQuery : IRequest<GetAllAuthorResponse>
             {
                 AuthorDtos = authors.Select(a=> new AuthorDto()
                 {
+                    Id = a.Id,
                     Name = a.Name,
                     Surname = a.Surname,
                 }).ToList()

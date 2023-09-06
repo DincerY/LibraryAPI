@@ -29,9 +29,9 @@ namespace LibraryAPI.Persistence.Services
            return readLists;
         }
 
-        public async Task<ReadList> GetUserReadListAsync(string id)
+        public async Task<ReadList> GetUserReadListAsync(string userId)
         {
-            ReadList readList = await _readListReadRepository.GetAsync(r => r.UserId == id,
+            ReadList readList = await _readListReadRepository.GetAsync(r => r.UserId == userId,
                 r => r.Include(r => r.ReadListItems)
                     .ThenInclude(rli => rli.Book)
                     .ThenInclude(b => b.Librarys)
