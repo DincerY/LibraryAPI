@@ -1,12 +1,13 @@
 ﻿using AutoMapper;
 using LibraryAPI.Application.Abstractions.Services;
 using LibraryAPI.Application.Features.Books.Dtos;
+using LibraryAPI.Application.Pipelines.Caching;
 using LibraryAPI.Domain.Entities;
 using MediatR;
 
 namespace LibraryAPI.Application.Features.Books.Queries.GetAll
 {
-    public class GetAllBookQuery : IRequest<List<GetAllBookResponse>>
+    public class GetAllBookQuery : IRequest<List<GetAllBookResponse>>, ICachableRequest
     {
         public class GetAllBookQueryHandler : IRequestHandler<GetAllBookQuery,List<GetAllBookResponse>>
         {
@@ -46,5 +47,9 @@ namespace LibraryAPI.Application.Features.Books.Queries.GetAll
                 return allBooks;
             }
         }
+
+        public string CacheKey => $"GetAllBookQuery";
+        public bool ByPassCache { get; }
+        public TimeSpan? SlidingExpiration { get; }
     }
 }
