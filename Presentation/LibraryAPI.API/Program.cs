@@ -8,6 +8,7 @@ using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using System.Text;
 using System.Text.Json.Serialization;
+using LibraryAPI.API.Consumers;
 using MassTransit;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,10 +20,18 @@ builder.Services.AddApplicationServices();
 
 builder.Services.AddMassTransit(configurator =>
 {
+    configurator.AddConsumer<OrderFinishedEventConsumer>();
+
     configurator.UsingRabbitMq((context, _configurator) =>
     {
-        _configurator.Host("amqps://gyakepie:U4yXBYYju9xZizew1LWjY_AAjeFKnax2@stingray.rmq.cloudamqp.com/gyakepie");
+        _configurator.Host("amqps://gyakepie:WMp2RPFSDqksndUbsWHF8PcpsBPL5NQI@stingray.rmq.cloudamqp.com/gyakepie");
+
+        _configurator.ReceiveEndpoint("library_order_finished_event_queue", con =>
+            con.ConfigureConsumer<OrderFinishedEventConsumer>(context)
+            );
     });
+
+    
 });
 
 builder.Services.AddStackExchangeRedisCache(option =>

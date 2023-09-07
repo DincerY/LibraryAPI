@@ -19,7 +19,7 @@ builder.Services.AddMassTransit(configurator =>
 
     configurator.UsingRabbitMq((context, _configurator) =>
     {
-        _configurator.Host("amqps://gyakepie:U4yXBYYju9xZizew1LWjY_AAjeFKnax2@stingray.rmq.cloudamqp.com/gyakepie");
+        _configurator.Host("amqps://gyakepie:WMp2RPFSDqksndUbsWHF8PcpsBPL5NQI@stingray.rmq.cloudamqp.com/gyakepie");
 
         _configurator.ReceiveEndpoint("order_readlist_finished_event_queue",e=>e.ConfigureConsumer<ReadListFinishedEventConsumer>(context));
     });

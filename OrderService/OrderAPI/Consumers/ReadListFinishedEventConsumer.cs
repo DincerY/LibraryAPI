@@ -26,7 +26,8 @@ public class ReadListFinishedEventConsumer : IConsumer<ReadListFinishedEvent>
             UserId = readListFinishedEvent.UserId,
         };
         Order addedOrder = await _orderService.AddOrder(order);
-        List<Product> products = await _productService.AddRangeProduct(context.Message.ProductId, addedOrder.Id);
-
+        await _productService.AddRangeProduct(context.Message.ProductId,addedOrder);
+        OrderFinishedEvent orderFinishedEvent = new() { OrderId = order.Id.ToString() };
+        await _endpoint.Publish(orderFinishedEvent);
     }
 }

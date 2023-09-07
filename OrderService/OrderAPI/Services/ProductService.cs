@@ -13,7 +13,7 @@ public class ProductService
         _context = context;
     }
 
-    public async Task<List<Product>> AddRangeProduct(Guid[] bookIds,Guid orderId)
+    public async Task<int> AddRangeProduct(Guid[] bookIds, Order order)
     {
         List<Product> products = new();
         foreach (var bookId in bookIds)
@@ -21,15 +21,18 @@ public class ProductService
             Product product = new()
             {
                 BookId = bookId,
-                OrderId = orderId,
+                OrderId = order.Id,
                 Name = ""
             };
             products.Add(product);
         }
 
         await _context.Products.AddRangeAsync(products);
-        await _context.SaveChangesAsync();
-        return products;
+        return await _context.SaveChangesAsync();
+
+
+
+
 
     }
 

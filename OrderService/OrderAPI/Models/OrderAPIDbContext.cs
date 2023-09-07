@@ -20,7 +20,8 @@ public class OrderAPIDbContext : DbContext
             o.ToTable("Orders").HasKey("Id");
             o.Property(o => o.UserId).HasColumnName("UserId");
             o.Property(o => o.Id).HasColumnName("Id");
-            o.HasMany(o => o.Products).WithOne(p => p.Order).HasForeignKey(p => p.OrderId);
+            o.HasMany(o=>o.Products).WithOne(p=>p.Order).HasForeignKey(p=>p.OrderId);
+         
         });
         modelBuilder.Entity<Product>(p =>
         {
@@ -38,7 +39,10 @@ public class OrderAPIDbContext : DbContext
         {
             if (entityEntry.Entity is BaseEntity entity)
             {
-                entity.Id = Guid.NewGuid();
+                if (entity.Id == null)
+                {
+                    entity.Id = Guid.NewGuid();
+                }
                 entity.CreatedDate = DateTime.UtcNow;
                 entity.UpdatedDate = DateTime.UtcNow;
             }
