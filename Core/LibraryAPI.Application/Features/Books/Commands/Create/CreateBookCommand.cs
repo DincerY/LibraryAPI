@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using LibraryAPI.Application.Abstractions.Services;
+using LibraryAPI.Application.Pipelines.Caching;
 using LibraryAPI.Application.Repositories.Book;
 using LibraryAPI.Application.ViewModels.Books;
 using LibraryAPI.Domain.Entities;
@@ -7,7 +8,7 @@ using MediatR;
 
 namespace LibraryAPI.Application.Features.Books.Commands.Create;
 
-public class CreateBookCommand : IRequest<CreatedBookResponse>
+public class CreateBookCommand : IRequest<CreatedBookResponse>, ICacheRemoverRequest
 {
     public string Title { get; set; }
     public string PageNumber { get; set; }
@@ -36,4 +37,7 @@ public class CreateBookCommand : IRequest<CreatedBookResponse>
             return response;
         }
     }
+
+    public string? CacheKey { get; } = "GetAllBookQuery";
+    public bool BypassCache { get; } = false;
 }

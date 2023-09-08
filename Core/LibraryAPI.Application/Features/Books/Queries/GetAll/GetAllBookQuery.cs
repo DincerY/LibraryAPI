@@ -48,8 +48,8 @@ namespace LibraryAPI.Application.Features.Books.Queries.GetAll
             }
         }
 
-        public string CacheKey => $"GetAllBookQuery";
+        public string CacheKey => "GetAllBookQuery";
         public bool ByPassCache { get; }
-        public TimeSpan? SlidingExpiration { get; }
+        public TimeSpan? SlidingExpiration { get; } = TimeSpan.Parse("2");
     }
 }

@@ -33,6 +33,7 @@ public class GetAllLibraryQuery :  IRequest<GetAllLibraryResponse>
             {
                 GetAllLibraryDto getAllLibraryDto = new()
                 {
+                    Id = library.Id,
                     Address = library.Address,
                     Books = library.Books.Select(b=> new BookDto()
                     {

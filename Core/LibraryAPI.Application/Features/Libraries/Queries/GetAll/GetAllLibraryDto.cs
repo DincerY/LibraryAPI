@@ -9,6 +9,7 @@ namespace LibraryAPI.Application.Features.Libraries.Queries.GetAll;
 
 public class GetAllLibraryDto
 {
+    public Guid Id { get; set; }
     public string Name { get; set; }
     public string Address { get; set; }
     public ICollection<BookDto> Books { get; set; }

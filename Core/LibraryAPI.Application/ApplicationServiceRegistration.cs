@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using FluentValidation;
+﻿using FluentValidation;
 using LibraryAPI.Application.Features.Authors.Rules;
 using LibraryAPI.Application.Pipelines.Caching;
 using LibraryAPI.Application.Pipelines.Validation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
+using System.Reflection;
 
 namespace LibraryAPI.Application;
 
@@ -23,6 +18,7 @@ public static class ApplicationServiceRegistration
 
             cfg.AddOpenBehavior(typeof(RequestValidationBehavior<,>));
             cfg.AddOpenBehavior(typeof(CachingBehavior<,>));
+            cfg.AddOpenBehavior(typeof(CacheRemovingBehavior<,>));
         });
 
         services.AddAutoMapper(Assembly.GetExecutingAssembly());

@@ -36,7 +36,7 @@ builder.Services.AddMassTransit(configurator =>
 
 builder.Services.AddStackExchangeRedisCache(option =>
 {
-    option.Configuration = "localhost:1453";
+    option.Configuration = "localhost:6379";
 });
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
